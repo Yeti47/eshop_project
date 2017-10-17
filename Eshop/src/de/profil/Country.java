@@ -1,11 +1,24 @@
 package de.profil;
 
-public class Country {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import net.yetibyte.snowstorm.IDatabaseReadable;
+
+public class Country implements IDatabaseReadable {
+	
+	// Constants
+	
+	private static final String TABLE_NAME = "countries";
+	private static final String[] COLUMN_NAMES = new String[] { "country_code", "name", "shipping_fee" };
 	
 	// Fields
+
+	private String _name = "";
 	
-	private String _name;
-	private String _code;
+	private String _code = "";
+
+	private double _shippingFee = 0.0;
 	
 	// Constructors
 	
@@ -13,6 +26,10 @@ public class Country {
 		
 		_name = name;
 		_code = code;
+		
+	}
+	
+	public Country() {
 		
 	}
 
@@ -25,7 +42,35 @@ public class Country {
 	public String getCode() {
 		return _code;
 	}
+
+	public double getShippingFee() {
+		return _shippingFee;
+	}
 	
 	// Methods
+
+	@Override
+	public String getTableName() {
+		
+		return TABLE_NAME;
+	}
+
+	@Override
+	public String[] getColumnNames() {
+
+		return COLUMN_NAMES;
+		
+	}
+
+	@Override
+	public void readFromDatabase(ResultSet rs) throws SQLException {
+	
+		_name = rs.getString("name");
+		_code = rs.getString("country_code");
+		_shippingFee = rs.getDouble("shipping_fee");
+		
+	}
+	
+	
 
 }
