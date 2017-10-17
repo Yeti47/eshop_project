@@ -10,6 +10,8 @@
 
 <%
 
+// Bin jetzt auch dabei!
+
 DataSource dataSource = Config.getDataSource();
 
 DatabaseAccessor dbAccess = new DatabaseAccessor(dataSource);
