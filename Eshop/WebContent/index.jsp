@@ -16,12 +16,12 @@ DataSource dataSource = Config.getDataSource();
 DatabaseAccessor dbAccess = new DatabaseAccessor(dataSource);
 
 List<Country> countries = dbAccess.fetch(() -> new Country());
-List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'", null);
+List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'");
 
 String dbErrorMessage = "";
 
-CountryBean countryBean = new CountryBean(countries);
-PaymentBean paymentBean = new PaymentBean(payments);
+SelectBoxBuilder countryBean = new SelectBoxBuilder(countries.toArray(new Country[0]));
+SelectBoxBuilder paymentBean = new SelectBoxBuilder(payments.toArray(new Payment[0]));
 
 if(countries != null && payments != null) {
 	
@@ -30,7 +30,7 @@ if(countries != null && payments != null) {
 }
 else {
 	
-	dbErrorMessage = "Es ist ein Fehler bei der Verbindung zur Datenbank aufgereten.";
+	dbErrorMessage = "Es ist ein Fehler bei der Verbindung zur Datenbank aufgetreten.";
 	
 }
 
@@ -58,11 +58,11 @@ else {
 	
 	<h3>Wir beliefern folgende europäische Länder:</h3>
 	
-	<%=countryBean.htmlSelect("country", 1, "Bitte auswählen...") %>
+	<%=countryBean.htmlSelect("country", 1, "countries") %>
 	
 	<h3>In Deutschland bieten wir folgende Zahlungsmethoden an:</h3>
 	
-	<%=paymentBean.htmlSelect("payment", 1, "Zahlung wählen...", null, null) %>
+	<%=paymentBean.htmlSelect("payment", 1, "payments") %>
 	
 
 </div>

@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import de.profil.Payment;
 
+/**
+ * 
+ * @author Alexander Herrfurth
+ * @deprecated Ersetzt durch {@link SelectBoxBuilder}.
+ */
+@Deprecated
 public class PaymentBean {
 	
 	// Fields

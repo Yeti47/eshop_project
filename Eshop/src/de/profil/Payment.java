@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import de.profil.beans.ISelectBoxOption;
 import net.yetibyte.snowstorm.IJoinedDatabaseObj;
 import net.yetibyte.snowstorm.Join;
 
-public class Payment implements IJoinedDatabaseObj {
+public class Payment implements IJoinedDatabaseObj, ISelectBoxOption {
 
 	// Constants
 	
@@ -83,6 +84,18 @@ public class Payment implements IJoinedDatabaseObj {
 		
 		return joins;
 		
+	}
+
+	@Override
+	public String getOptionValue() {
+		
+		return Integer.toString(_id);
+	}
+
+	@Override
+	public String getOptionText() {
+		
+		return _name;
 	}
 	
 	// Methods

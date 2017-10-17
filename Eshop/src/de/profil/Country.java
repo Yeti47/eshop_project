@@ -3,9 +3,10 @@ package de.profil;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import de.profil.beans.ISelectBoxOption;
 import net.yetibyte.snowstorm.IDatabaseReadable;
 
-public class Country implements IDatabaseReadable {
+public class Country implements IDatabaseReadable, ISelectBoxOption {
 	
 	// Constants
 	
@@ -69,6 +70,18 @@ public class Country implements IDatabaseReadable {
 		_code = rs.getString("country_code");
 		_shippingFee = rs.getDouble("shipping_fee");
 		
+	}
+
+	@Override
+	public String getOptionValue() {
+
+		return _code;
+	}
+
+	@Override
+	public String getOptionText() {
+
+		return _name;
 	}
 	
 	

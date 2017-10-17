@@ -4,6 +4,12 @@ import java.util.Collection;
 
 import de.profil.Country;
 
+/**
+ * 
+ * @author Alexander Herrfurth
+ * @deprecated Ersetzt durch {@link SelectBoxBuilder}.
+ */
+@Deprecated
 public class CountryBean {
 	
 	// Fields
