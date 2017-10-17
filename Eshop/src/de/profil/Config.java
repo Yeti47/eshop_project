@@ -30,8 +30,6 @@ public abstract class Config {
 			dataSource.setUser(DB_USER);
 			dataSource.setPassword(DB_PASS);
 			
-			Connection c = dataSource.getConnection();
-			
 		} catch (SQLException e) {
 			
 		}
