@@ -2,33 +2,33 @@ package de.profil.beans;
 
 import java.util.Collection;
 
-import de.profil.Country;
+import de.profil.Payment;
 
-public class CountryBean {
+public class PaymentBean {
 	
 	// Fields
 	
-	private Collection<Country> _countries = null;
+	private Collection<Payment> _payments = null;
 	
 	// Constructors
 	
-	public CountryBean(Collection<Country> countries) {
-		
-		_countries = countries;
+	public PaymentBean() {
 		
 	}
 	
-	public CountryBean() {
+	public PaymentBean(Collection<Payment> payments) {
+		
+		_payments = payments;
 		
 	}
-
+	
 	// Methods
 	
 	public String htmlSelect(String name, int size, String defaultOption, String cssClass, String cssId) {
 		
 		String html = "";
 		
-		if(_countries == null)
+		if(_payments == null)
 			return html;
 		
 		size = Math.max(1, size);
@@ -49,22 +49,14 @@ public class CountryBean {
 		if(defaultOption != null)
 			html += tab + "<option>" + defaultOption + "</option>" + newLine;
 		
-		for(Country c : _countries) {
+		for(Payment p : _payments) {
 			
-			html += tab + "<option>" + c.getName() + "</option>" + newLine;
+			html += tab + "<option>" + p.getName() + "</option>" + newLine;
 			
 		}
 		
 		return html + "</select>" + newLine;
 		
 	}
-	
-	public String htmlSelect(String name, int size, String defaultOption, String cssClass) {
-		return htmlSelect(name, size, defaultOption, cssClass, null);
-	}
-	
-	public String htmlSelect(String name, int size, String defaultOption) {
-		return htmlSelect(name, size, defaultOption, null, null);
-	}
-		
+
 }
