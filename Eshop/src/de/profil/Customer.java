@@ -79,7 +79,6 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	public DatasetAttributes writeToDatabase() {
 		DatasetAttributes attributes = new DatasetAttributes();
 		
-		attributes.setAttribute("custom_id", _custom_id);
 		attributes.setAttribute("title", rec.getTitle());
 		attributes.setAttribute("name", rec.getName());
 		attributes.setAttribute("firstname", rec.getFirstname());
