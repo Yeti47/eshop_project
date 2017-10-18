@@ -9,7 +9,7 @@ import net.yetibyte.snowstorm.IDatabaseReadable;
 import net.yetibyte.snowstorm.IDatabaseWritable;
 
 
-public class Bank implements IDatabaseReadable,IDatabaseWritable {
+public class Bank implements IDatabaseReadable, IDatabaseWritable {
 	
 	// Constants
 	
@@ -81,22 +81,21 @@ public class Bank implements IDatabaseReadable,IDatabaseWritable {
 			
 	}	
 	
-		public String getOptionText() {
-			
-			return _name;
-		}
 
-		public String getOptionValue() {
-			// TODO Auto-generated method stub
-			return null;
-		}
 
+		
 		@Override
 		public DatasetAttributes writeToDatabase() {
-			// TODO Auto-generated method stub
-			return null;
+			DatasetAttributes attributes = new DatasetAttributes();
+			
+			attributes.setAttribute("name", _name);
+			attributes.setAttribute("owner", _owner);
+			attributes.setAttribute("bic", _bic);
+			attributes.setAttribute("iban", _iban);
+			
+			
+			return attributes;
 		}
-		
 
 	
 }
