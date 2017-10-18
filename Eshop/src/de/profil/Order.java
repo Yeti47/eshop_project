@@ -19,7 +19,41 @@ public class Order {
 	
 	// Getters / Setters
 	
+	public int getId() {
+		return _id;
+	}
+
+	public Customer getCustomer() {
+		return _customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		_customer = customer;
+	}
+
+	public Receiver getReceiver() {
+		return _receiver;
+	}
+
+	public void setReceiver(Receiver receiver) {
+		_receiver = receiver;
+	}
+
+	public Payment getPayment() {
+		return _payment;
+	}
+
+	public void setPayment(Payment payment) {
+		_payment = payment;
+	}
+	
 	// Methods
+	
+	public Product[] getAllProducts() {
+		
+		return _products.toArray(new Product[0]);
+		
+	}
 	
 	public void addProduct(Product product) {
 		
