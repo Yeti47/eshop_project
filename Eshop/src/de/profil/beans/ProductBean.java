@@ -31,7 +31,7 @@ public class ProductBean {
 
 	// Methods
 	
-	public String htmlSelect() {
+	public String htmlBuildProductsList() {
 		    
 		String html = "";
 		
