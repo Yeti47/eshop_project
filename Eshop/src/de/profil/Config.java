@@ -11,7 +11,7 @@ public abstract class Config {
 	/**
 	 * Der Name des Online-Shops.
 	 */
-	public static final String ESHOP_NAME = "K. Adam's Online Store";
+	public static final String ESHOP_NAME = "K. Adam's Electronics";
 	
 	public static final String DB_URL = "jdbc:oracle:thin:@192.168.122.132:1521:XE";
 	public static final String DB_USER = "a10";
