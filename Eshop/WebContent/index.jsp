@@ -11,6 +11,7 @@
 <%
 
 // Bin jetzt auch dabei!
+// Kevin ist dabei!
 
 DataSource dataSource = Config.getDataSource();
 DatabaseAccessor dbAccess = new DatabaseAccessor(dataSource);
