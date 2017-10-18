@@ -20,8 +20,14 @@ List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countrie
 
 String dbErrorMessage = "";
 
-SelectBoxBuilder countryBean = new SelectBoxBuilder(countries.toArray(new Country[0]));
-SelectBoxBuilder paymentBean = new SelectBoxBuilder(payments.toArray(new Payment[0]));
+Country[] countryArr = countries.toArray(new Country[0]);
+Arrays.sort(countryArr, (x, y) -> x.getName().compareTo(y.getName()));
+
+Payment[] paymentArr = payments.toArray(new Payment[0]);
+Arrays.sort(paymentArr, (x, y) -> x.getId() - y.getId());
+
+SelectBoxBuilder countryBean = new SelectBoxBuilder(countryArr);
+SelectBoxBuilder paymentBean = new SelectBoxBuilder(paymentArr);
 
 if(countries != null && payments != null) {
 	
