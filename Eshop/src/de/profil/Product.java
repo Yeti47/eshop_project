@@ -71,7 +71,9 @@ public class Product implements IJoinedDatabaseObj {
 	public double getPackageFee() {
 		return _packageFee;
 	}
+
 	
+
 	// Methods
 
 	@Override

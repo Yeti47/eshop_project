@@ -18,6 +18,7 @@ DatabaseAccessor dbAccess = new DatabaseAccessor(dataSource);
 
 List<Country> countries = dbAccess.fetch(() -> new Country());
 List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'");
+List<Product> products = dbAccess.fetchJoined(() -> new Product());
 
 String dbErrorMessage = "";
 
@@ -30,9 +31,12 @@ Arrays.sort(paymentArr, (x, y) -> x.getId() - y.getId());
 SelectBoxBuilder countryBean = new SelectBoxBuilder(countryArr);
 SelectBoxBuilder paymentBean = new SelectBoxBuilder(paymentArr);
 
-if(countries != null && payments != null) {
+String prodTest = "";
+
+if(countries != null && payments != null && products != null) {
 	
-	// Stuff
+	for(Product p : products)
+		prodTest += p.getName() + "<br>";
 	
 }
 else {
@@ -70,6 +74,10 @@ else {
 	<h3>In Deutschland bieten wir folgende Zahlungsmethoden an:</h3>
 	
 	<%=paymentBean.htmlSelect("payment", 1, "payments") %>
+	
+	<h3>Hier unsere Produktauswahl:</h3>
+	
+	<p><%=prodTest %></p>
 	
 
 </div>
