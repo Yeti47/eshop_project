@@ -23,6 +23,12 @@ public class Country implements IDatabaseReadable, ISelectBoxOption {
 	
 	// Constructors
 	
+	public Country(String name, String code, double shippingFee) {
+		this(name, code);
+		_shippingFee = shippingFee;
+		
+	}
+	
 	public Country(String name, String code) {
 		
 		_name = name;
