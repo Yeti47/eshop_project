@@ -15,9 +15,10 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 
 	// Fields
 
-	private int    _custom_id = -1;
-	private Receiver rec 			= new Receiver();
-	private String _email 		= "";
+	private int      _custom_id = -1;
+	private Receiver rec 				= new Receiver();
+	private String   _email 		= "";
+	private Bank     bank 			= new Bank();
 
 	public Customer(String title, String name, String firstname, Integer addr_id, Integer custom_id, String email) {
 		
