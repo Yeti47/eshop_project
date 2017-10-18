@@ -20,6 +20,15 @@ List<Country> countries = dbAccess.fetch(() -> new Country());
 List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'");
 List<Product> products = dbAccess.fetchJoined(() -> new Product());
 
+List<Bundle> bundles = dbAccess.fetchJoined(() -> new Bundle());
+
+for(Bundle b : bundles) {
+	
+	b.fetchProducts(dbAccess);
+	products.add(b);
+	
+}
+
 String dbErrorMessage = "";
 
 Country[] countryArr = countries.toArray(new Country[0]);
@@ -78,6 +87,8 @@ else {
 	<h3>Hier unsere Produktauswahl:</h3>
 	
 	<p><%=prodTest %></p>
+	
+	
 	
 
 </div>

@@ -15,7 +15,7 @@ public class Bundle extends Product {
 	
 	private static final String TABLE_NAME = "bundles";
 	private static final String[] COLUMN_NAMES = new String[] {
-			"bundles.prod_id AS prod_id",
+			"bundles.bundle_id AS prod_id",
 			"bundles.name AS name",
 			"bundles.descr AS descr",
 			"bundles.price AS price",

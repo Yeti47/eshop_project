@@ -1,10 +1,54 @@
 package de.profil;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+import net.yetibyte.snowstorm.DatabaseAccessor;
+import net.yetibyte.snowstorm.DatasetAttributes;
+import net.yetibyte.snowstorm.IDatabaseWritable;
+
+public class Order implements IDatabaseWritable {
 	
+	// Nested Class
+	
+	private class Position implements IDatabaseWritable {
+
+		private static final String POS_TABLE_NAME = "orders";
+		
+		private int _index;
+		private Product _product;
+		
+		public Position(int index, Product product) {
+			_index = index;
+			_product = product;
+		}
+		
+		@Override
+		public String getTableName() {
+
+			return POS_TABLE_NAME;
+		}
+
+		@Override
+		public DatasetAttributes writeToDatabase() {
+
+			DatasetAttributes dsAttributes = new DatasetAttributes();
+			dsAttributes.setAttribute("order_id", _id);
+			dsAttributes.setAttribute("pos_id", _index);
+			dsAttributes.setAttribute("quantity", countProducts(_product.getId()));
+			
+			return dsAttributes;
+			
+		}
+
+	}
+	
+	// Constants
+	
+	private static final String TABLE_NAME = "orders";
+
 	// Fields
 	
 	private int _id = -1;
@@ -120,6 +164,55 @@ public class Order {
 		}
 			
 		return total;
+		
+	}
+
+	@Override
+	public String getTableName() {
+		
+		return TABLE_NAME;
+	}
+
+	@Override
+	public DatasetAttributes writeToDatabase() {
+		
+		if(_customer == null || _receiver == null || _payment == null)
+			return null;
+		
+		DatasetAttributes dsAttributes = new DatasetAttributes();
+		dsAttributes.setAttribute("custom_id", _customer.getCustom_id());
+		dsAttributes.setAttribute("rec_id", _receiver.getCustom_id());
+		
+		Date d = Date.valueOf(LocalDate.now());
+		
+		// TODO: snowstORM unterstützt bislang nur das Schreiben von Strings, Typen-Unterscheidung einbauen!
+		// Evtl reicht die Benutzung von statement.setObject() anstelle von statement.setString(), je nach Treiber
+		dsAttributes.setAttribute("order_date", d);
+		
+		
+		return null;
+	}
+	
+	public boolean insertPositionsIntoDatabase(DatabaseAccessor dbAccessor) {
+		
+		if(dbAccessor == null)
+			return false;
+		
+		int previousProdId = -1;
+		int posId = 1;
+		
+		for(Product p : _products) {
+			
+			if(p.getId() != previousProdId) {
+				
+				dbAccessor.insert(new Position(posId, p));
+				posId++;
+				
+			}
+			
+		}
+		
+		return true;
 		
 	}
 
