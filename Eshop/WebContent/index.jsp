@@ -76,6 +76,16 @@ else {
 
 	<p><%=dbErrorMessage %>
 	
+	
+		<div class="nav">
+			<a href="warenkorb.jsp">Warenkorb</a>
+			<a href="kundendaten.jsp">Kundendaten</a>
+			<a href="zahlungsarten.jsp">Zahlungsarten</a>
+			<a href="uebersicht.jsp">Übersicht</a>
+		</div>
+	
+	
+	
 	<h3>Wir beliefern folgende europäische Länder:</h3>
 	
 	<%=countryBean.htmlSelect("country", 1, "countries") %>
