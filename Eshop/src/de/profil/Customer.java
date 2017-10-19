@@ -40,6 +40,10 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 		return _email;
 	}
 	
+	public void setEmail(String email) {
+		_email = email;
+	}
+	
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;

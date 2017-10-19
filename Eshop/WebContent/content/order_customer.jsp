@@ -49,6 +49,7 @@
 		customer.setTitleByString(WebUtility.getNonNullParam(request, "title"));
 		customer.setFirstname(WebUtility.getNonNullParam(request, "firstname"));
 		customer.setName(WebUtility.getNonNullParam(request, "lastname"));
+		customer.setEmail(WebUtility.getNonNullParam(request, "email"));
 		
 		address.setStreet(WebUtility.getNonNullParam(request, "street"));
 		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
@@ -125,6 +126,10 @@
 			
 			<%=countryBuilder.htmlSelect("country", 1, "country", "country") %>
 			
+			<br>
+			
+			<label class="label-medium" for="email">E-Mail:</label>
+			<input type="text" id="email" name="email" value="<%=customer.getEmail() %>"/>
 			<br>
 			
 			<label class="label-large" for="delivery">Ich möchte eine abweichende Lieferanschrift angeben:</label>
