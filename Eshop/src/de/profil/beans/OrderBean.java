@@ -1,6 +1,5 @@
 package de.profil.beans;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -87,6 +86,9 @@ public class OrderBean {
 		
 		String prodId = _request.getParameter("add");
 		String quantityStr = _request.getParameter("quantity");
+		
+		if(quantityStr == null)
+			return;
 		
 		int quantity = 0;
 		

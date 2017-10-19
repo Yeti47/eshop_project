@@ -39,7 +39,8 @@
 		
 		<%=orderBean.listShoppingCartItems() %>
 
-  		<a href="../index.jsp"><button type="button">weiter Einkaufen</button></a>
+  		<a href="../index.jsp"><button type="button">Weiter Einkaufen</button></a>
+  		<a href="order_customer.jsp"><button type="button">Bestellen</button></a>
   		
   </div>		
   </body>
