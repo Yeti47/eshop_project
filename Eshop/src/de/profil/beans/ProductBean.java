@@ -62,19 +62,26 @@ public class ProductBean {
 		html += "<table id='productTable'>" + newLine;
 
 		for(Product c : _products) {
-			html += "\t<tr class='product' border='1'>" + newLine;
-			html += "\t\t<td class='product-image'>" + newLine;
-			html += "\t\t\t<td>" + newLine;
-			html += "\t\t\t\t<img src='img/" + c.getImageName() + "' width='60' height='60' border='0' alt='' />" + newLine;
-			html += "\t\t\t</td>" + newLine;
-			html += "\t\t<td class='product-title'>" + newLine;			
-			html += "\t\t\t<td>\n\t\t\t\t<b>" + c.getName() + "</b>\n\t\t\t<br />" + c.getDescription() + "</td>" + newLine;
-			html += "\t\t<td class='product-price'>" + newLine;			
-			html += "\t\t\t<div class='Pricing'>\n\t\t\t\t" + c.getPrice() + "<br />\t\t\t\t" + c.getPackageFee() + "<br />" + newLine;
-			html += "<input name='m_" + c.getId() + "' class='ab-form-control input-sm' value='1' size='1'/>";
-			html += "<input type='submit' value='Warenkorb' name='pb" + c.getId() + "' class='ContentButton' />";
-			html += "\t\t\t</div>" + newLine;
-			html += "\t\t</td>\n\t</tr>" + newLine;
+			html += tab + 												"<tr class='product' border='1'>" + newLine;
+			html += tab + tab + 									"<td class='product-image'>" + newLine;
+			html += tab + tab + tab + 						"<td>" + newLine;
+			html += tab + tab + tab + tab + 			"<a href='img/" + c.getImageName() + "' target='_blank'><img src='img/" + c.getImageName() + "' width='60' height='60' border='0' alt=''/></a>" + newLine;
+			html += tab + tab + tab + 						"</td>" + newLine;
+			html += tab + tab + "									<td class='product-title'>" + newLine;			
+			html += tab + tab + tab + 						"<td>" + newLine;
+			html += tab + tab + tab + tab + 			"<b>" + c.getName() + "</b><br />" + newLine;
+			html += tab + tab + tab +       			c.getDescription() + "</td>" + newLine;
+			html += tab + tab +             			"<td class='product-price'>" + newLine;			
+			html += tab + tab + tab +  						"<div class='Pricing'>" + newLine;
+			html += tab + tab + tab + tab + 			c.getPrice() + "<br />"+ newLine;
+			html += tab + tab + tab + tab + 			c.getPackageFee() + "<br />" + newLine;
+			html += tab + tab + tab + tab + 			"<form action='index.jsp' method='post'>" + newLine;
+			html += tab + tab + tab + tab + tab + "<input type='number' name='quantity' value='1' />" + newLine;
+			html += tab + tab + tab + tab + tab + "<button type='add' value='add'>Warenkorb</button>" + newLine;
+			html += tab + tab + tab + tab + 			"</form>" + newLine;
+			html += tab + tab + tab + 						"</div>" + newLine;
+			html += tab + tab + 									"</td>" + newLine;
+			html += tab + 												"</tr>" + newLine;
 		}
 		
 		return html + "</table>" + newLine;
