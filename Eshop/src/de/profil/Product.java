@@ -20,7 +20,8 @@ public class Product implements IJoinedDatabaseObj {
 			"products.descr AS descr",
 			"products.price AS price",
 			"products.active AS active",
-			"packages.package_fee AS package_fee"
+			"packages.package_fee AS package_fee",
+			"products.image AD image"
 	};
 	
 	// Fields
@@ -31,6 +32,7 @@ public class Product implements IJoinedDatabaseObj {
 	private double _price = 0.0;
 	private boolean _isActive = true;
 	private double _packageFee = 0.0;
+	private String _imageName = "";
 	
 	// Constructor
 	
@@ -47,6 +49,10 @@ public class Product implements IJoinedDatabaseObj {
 	}
 	
 	// Getters / Setters
+	
+	public String getImageName() {
+		return _imageName;
+	}
 	
 	public int getId() {
 		return _id;
@@ -100,6 +106,7 @@ public class Product implements IJoinedDatabaseObj {
 		_price = rs.getDouble("price");
 		_isActive = rs.getBoolean("active");
 		_packageFee = rs.getDouble("package_fee");
+		_imageName = rs.getString("image");
 				
 	}
 
