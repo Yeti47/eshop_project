@@ -15,6 +15,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@include file="header.jsp" %>
 
-</body>
+<div id="container">
+	
+			
+		<div class="nav">
+			<a href="../index.jsp">Startseite</a>
+			<a href="warenkorb.jsp">Warenkorb</a>
+			<a href="kundendaten.jsp">Kundendaten</a>
+			<a href="zahlungsarten.jsp">Zahlungsarten</a>
+			<a href="uebersicht.jsp">Übersicht</a>
+		</div>
+	
+		<div>
+    	<h2>Sonstiges</h2>
+    		<ul>
+      			<li><a href="content/impressum.jsp">Impressum</a></li>
+          	</ul>
+  		</div>
+  </div>		
+  </body>
 </html>

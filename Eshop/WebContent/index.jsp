@@ -78,13 +78,18 @@ else {
 	
 	
 		<div class="nav">
-			<a href="warenkorb.jsp">Warenkorb</a>
-			<a href="kundendaten.jsp">Kundendaten</a>
-			<a href="zahlungsarten.jsp">Zahlungsarten</a>
-			<a href="uebersicht.jsp">Übersicht</a>
+			<a href="content/warenkorb.jsp">Warenkorb</a>
+			<a href="content/kundendaten.jsp">Kundendaten</a>
+			<a href="content/zahlungsarten.jsp">Zahlungsarten</a>
+			<a href="content/uebersicht.jsp">Übersicht</a>
 		</div>
 	
-	
+		<div>
+    	<h2>Sonstiges</h2>
+    		<ul>
+      			<li><a href="content/impressum.jsp">Impressum</a></li>
+          	</ul>
+  		</div>
 	
 	<h3>Wir beliefern folgende europäische Länder:</h3>
 	
@@ -97,6 +102,8 @@ else {
 	<h3>Hier unsere Produktauswahl:</h3>
 	
 	<p><%=prodTest %></p>
+	
+	
 	
 	
 	
