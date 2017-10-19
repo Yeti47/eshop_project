@@ -67,12 +67,19 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 
 	@Override
 	public DatasetAttributes writeToDatabase() {
+		
+		/*
 		DatasetAttributes attributes = new DatasetAttributes();
 		
 		attributes.setAttribute("title", rec.getTitle());
 		attributes.setAttribute("name", rec.getName());
 		attributes.setAttribute("firstname", rec.getFirstname());
 		attributes.setAttribute("addr_id", rec.getAddr_id());
+		attributes.setAttribute("email", _email);
+		
+		*/
+		
+		DatasetAttributes attributes = super.writeToDatabase();
 		attributes.setAttribute("email", _email);
 		
 		return attributes;
