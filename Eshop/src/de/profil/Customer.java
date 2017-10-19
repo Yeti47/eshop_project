@@ -11,7 +11,7 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	// Constants
 	
 	private static final String TABLE_NAME = "customers";
-	private static final String[] COLUMN_NAMES = new String[] { "custom_id", "title", "name", "firstname", "addr_id", "email" };
+	private static final String[] COLUMN_NAMES = new String[] { "custom_id", "title", "name", "firstname", "addr_id", "email", "phon" };
 
 	// Fields
 
@@ -19,11 +19,15 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	private Receiver rec 				= new Receiver();
 	private String   _email 		= "";
 	private Bank     bank 			= new Bank();
+	private String _phone = "";
 
-	public Customer(Title title, String name, String firstname, Integer addr_id, Integer custom_id, String email) {
+	// Constructors
+	
+	public Customer(Title title, String name, String firstname, Integer addr_id, Integer custom_id, String email, String phone) {
 		
 		super(title, name, firstname, addr_id, custom_id);
 		_email = email;
+		_phone = phone;
 	}
 	
 	public Customer() {
@@ -40,6 +44,18 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 		return _email;
 	}
 	
+	public void setEmail(String email) {
+		_email = email;
+	}
+	
+	public String getPhone() {
+		return _phone;
+	}
+
+	public void setPhone(String phone) {
+		_phone = phone;
+	}
+
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
@@ -81,6 +97,7 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 		
 		DatasetAttributes attributes = super.writeToDatabase();
 		attributes.setAttribute("email", _email);
+		attributes.setAttribute("phon", _phone);
 		
 		return attributes;
 	}

@@ -11,8 +11,9 @@
 <%
 	
 	EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
+	dbAccess.setSelectDistinct(true);	
 
-	List<Country> countries = dbAccess.fetch(() -> new Country());
+	List<Country> countries = dbAccess.fetchJoined(() -> new Country());
 	
 	String countriesDbError = "";
 	String dbErrorVisibilty = "error-hidden";
@@ -37,12 +38,30 @@
 	countryBuilder.setDefaultValue("-1");
 	
 	Customer customer = new Customer();
+	Address address = new Address();
 	
 	String action = WebUtility.getNonNullParam(request, "action");
 	
-	if(action.equals("send-customer-data")) {
+	String deliveryChecked = "";
+	
+	if(action.equals("send")) {
 		
+		customer.setTitleByString(WebUtility.getNonNullParam(request, "title"));
+		customer.setFirstname(WebUtility.getNonNullParam(request, "firstname"));
+		customer.setName(WebUtility.getNonNullParam(request, "lastname"));
+		customer.setEmail(WebUtility.getNonNullParam(request, "email"));
+		customer.setPhone(WebUtility.getNonNullParam(request, "phone"));
 		
+		address.setStreet(WebUtility.getNonNullParam(request, "street"));
+		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
+		address.setPostCode(WebUtility.getNonNullParam(request, "postcode"));
+		address.setCity(WebUtility.getNonNullParam(request, "city"));
+						
+		customer.setAddress(address);
+		
+		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
+		
+		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 		
 	}
 	
@@ -83,23 +102,23 @@
 			<br>
 			
 			<label class="label-medium" for="firstname">Vorname:</label>
-			<input type="text" id="firstname" name="firstnmae"/>
+			<input type="text" id="firstname" name="firstname" value="<%=customer.getFirstname() %>"/>
 			<br>
 			
 			<label class="label-medium" for="lastname">Name:</label>
-			<input type="text" id="lastname" name="lastname"/>
+			<input type="text" id="lastname" name="lastname" value="<%=customer.getName() %>"/>
 			<br>
 			
 			<label class="label-medium" for="street">Straße:</label>
-			<input type="text" id="street" name="street"/>
+			<input type="text" id="street" name="street" value="<%=address.getStreet() %>"/>
 			<br>
 			
 			<label class="label-medium" for="houseno">Hausnummer:</label>
-			<input type="text" id="houseno" name="houseno"/>
+			<input type="text" id="houseno" name="houseno" value="<%=address.getHouseNumber() %>"/>
 			<br>
 			
 			<label class="label-medium" for="postcode">PLZ:</label>
-			<input type="text" id="postcode" name="postcode"/>
+			<input type="text" id="postcode" name="postcode" value="<%=address.getPostCode() %>"/>
 			<br>
 			
 			<div class="error-db <%=dbErrorVisibilty %>">
@@ -112,15 +131,23 @@
 			
 			<br>
 			
+			<label class="label-medium" for="email">E-Mail:</label>
+			<input type="text" id="email" name="email" value="<%=customer.getEmail() %>"/>
+			<br>
+			
+			<label class="label-medium" for="phone">Telefon:</label>
+			<input type="text" id="phone" name="phone" value="<%=customer.getEmail() %>"/>
+			<br>
+			
 			<label class="label-large" for="delivery">Ich möchte eine abweichende Lieferanschrift angeben:</label>
-			<input type="checkbox" id="delivery" name="delivery"/>
+			<input type="checkbox" id="delivery" name="delivery" value="checked" <%=deliveryChecked %>/>
 			<br>
 	
 		</div>
 		
 		<div class="form-group">
 		
-			<button type="submit" name="action" value="send-customer-data">Weiter</button>
+			<button type="submit" name="action" value="send">Weiter</button>
 		
 		</div>
 	

@@ -8,6 +8,8 @@ public class SelectBoxBuilder {
 	private String _defaultText = null;
 	private String _defaultValue = null;
 	
+	private String _preselectedValue = null;
+	
 	// Constructors
 	
 	public SelectBoxBuilder() {
@@ -36,6 +38,14 @@ public class SelectBoxBuilder {
 
 	public void setDefaultText(String defaultText) {
 		_defaultText = defaultText;
+	}
+
+	public String getPreselectedValue() {
+		return _preselectedValue;
+	}
+
+	public void setPreSelectedItem(String preselectedValue) {
+		_preselectedValue = preselectedValue;
 	}
 
 	public String getDefaultValue() {
@@ -79,7 +89,8 @@ public class SelectBoxBuilder {
 
 		for(ISelectBoxOption opt : _options) {
 			
-			html += tab + "<option value='" + opt.getOptionValue() + "'>" + opt.getOptionText() + "</option>" + newLine;
+			String selected = opt.getOptionValue().equals(_preselectedValue) ? " selected " : "";
+			html += tab + "<option value='" + opt.getOptionValue() + "' " + selected + " >" + opt.getOptionText() + "</option>" + newLine;
 			
 		}
 		
