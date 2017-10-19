@@ -55,7 +55,7 @@
 		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
 		address.setPostCode(WebUtility.getNonNullParam(request, "postcode"));
 		address.setCity(WebUtility.getNonNullParam(request, "city"));
-						
+	
 		customer.setAddress(address);
 		
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
@@ -118,6 +118,10 @@
 			
 			<label class="label-medium" for="postcode">PLZ:</label>
 			<input type="text" id="postcode" name="postcode" value="<%=address.getPostCode() %>"/>
+			<br>
+			
+			<label class="label-medium" for="city">Ort:</label>
+			<input type="text" id="city" name="city" value="<%=address.getCity() %>"/>
 			<br>
 			
 			<div class="error-db <%=dbErrorVisibilty %>">
