@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"
-        import=
+         import=
     	"net.yetibyte.snowstorm.*, 
     	de.profil.*,
     	de.profil.beans.*,
@@ -27,13 +27,14 @@
 			<a href="zahlungsarten.jsp">Zahlungsarten</a>
 			<a href="uebersicht.jsp">Übersicht</a>
 		</div>
-	
-		<div>
-    	<h2>Sonstiges</h2>
-    		<ul>
-      			<li><a href="impressum.jsp">Impressum</a></li>
-          	</ul>
-  		</div>
-  </div>		
+	<h1>Impressum</h1>
+	<p>K.Adam's Electronics GmbH<br>
+		Mordsgaudistr. 96 - D. 30167 Hannover<br>     
+		mob.: +49.172-12345678<br>
+		verantw.: Alle<br>
+		IHK Hannover, St.-Nr. 18/404/30167<br></p>
+
+	<p>Texte und Bilder dieser Seiten unterliegen dem Urheberrecht. Der Inhalt darf ohne schriftliche Genehmigung weder bearbeitet, übersetzt, vervielfältigt oder verbreitet, noch sonst gewerblich auf Druckmedien oder elektronischem Wege vertrieben werden. Wir übernehmen keine Haftung für die Inhalte externer Links, für deren Inhalt sind ausschließlich deren Betreiber verantwortlich.</p>
+	</div>
 </body>
 </html>
