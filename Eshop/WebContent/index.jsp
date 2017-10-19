@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" 
-    import="de.profil.*,
+    import="
+    	de.profil.*,
     	de.profil.beans.*,
     	javax.sql.DataSource, 
     	java.util.*"
@@ -8,8 +9,6 @@
 
 <%
 
-// Bin jetzt auch dabei!
-// Kevin ist dabei!
 
 EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 
@@ -25,6 +24,8 @@ for(Bundle b : bundles) {
 	products.add(b);
 	
 }
+
+ProductBean pb = new ProductBean(products);
 
 String dbErrorMessage = "";
 
@@ -69,25 +70,16 @@ else {
 
 <div id="container">
 	
-	
-
 	<p><%=dbErrorMessage %>
-	
-	
 		<div class="nav">
-			<a href="content/warenkorb.jsp">Warenkorb</a>
-			<a href="content/kundendaten.jsp">Kundendaten</a>
-			<a href="content/zahlungsarten.jsp">Zahlungsarten</a>
-			<a href="content/uebersicht.jsp">Übersicht</a>
+			<a href="index.jsp">Startseite</a>
+			<a href="content/warenkorb.jsp">Warenkorb</a><tab>
+			<a href="content/kundendaten.jsp">Kundendaten</a><tab>
+			<a href="content/zahlungsarten.jsp">Zahlungsarten</a><tab>
+			<a href="content/uebersicht.jsp">Übersicht</a><tab>
+			<a href="content/impressum.jsp">Impressum</a>
 		</div>
-	
-		<div>
-    	<h2>Sonstiges</h2>
-    		<ul>
-      			<li><a href="content/impressum.jsp">Impressum</a></li>
-          	</ul>
-  		</div>
-	
+		
 	<h3>Wir beliefern folgende europäische Länder:</h3>
 	
 	<%=countryBean.htmlSelect("country", 1, "countries") %>
@@ -97,10 +89,14 @@ else {
 	<%=paymentBean.htmlSelect("payment", 1, "payments") %>
 	
 	<h3>Hier unsere Produktauswahl:</h3>
+	<div>
+	<%=pb.htmlProductsView() %>
 	
-	<p><%=prodTest %></p>
-	
-	
+	</div>
+	<br>
+	<br>
+	<br>
+	<button type="button">zum Warenkorb</button>
 	
 	
 	

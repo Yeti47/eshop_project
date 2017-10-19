@@ -77,11 +77,12 @@ public class ProductBean {
 			html += tab + tab + tab + tab + 			c.getPackageFee() + "<br />" + newLine;
 			html += tab + tab + tab + tab + 			"<form action='content/warenkorb.jsp' method='post'>" + newLine;
 			html += tab + tab + tab + tab + tab + "<input type='number' name='quantity' value='1' />" + newLine;
-			html += tab + tab + tab + tab + tab + "<button type='add' value='" + c.getId() + "'>Warenkorb</button>" + newLine;
+			html += tab + tab + tab + tab + tab + "<button type='add' value='" + c.getId() + "'>in den Warenkorb</button>" + newLine;
 			html += tab + tab + tab + tab + 			"</form>" + newLine;
 			html += tab + tab + tab + 						"</div>" + newLine;
 			html += tab + tab + 									"</td>" + newLine;
 			html += tab + 												"</tr>" + newLine;
+			
 		}
 		
 		return html + "</table>" + newLine;
