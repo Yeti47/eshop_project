@@ -2,16 +2,21 @@ package de.profil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.profil.beans.ISelectBoxOption;
 import net.yetibyte.snowstorm.IDatabaseReadable;
+import net.yetibyte.snowstorm.IJoinedDatabaseObj;
+import net.yetibyte.snowstorm.Join;
 
-public class Country implements IDatabaseReadable, ISelectBoxOption {
+public class Country implements IJoinedDatabaseObj, ISelectBoxOption {
 	
 	// Constants
 	
 	private static final String TABLE_NAME = "countries";
-	private static final String[] COLUMN_NAMES = new String[] { "country_code", "name", "shipping_fee" };
+	private static final String[] COLUMN_NAMES = new String[] { "countries.country_code", "countries.name", "countries.shipping_fee" };
 	
 	// Fields
 
@@ -88,6 +93,17 @@ public class Country implements IDatabaseReadable, ISelectBoxOption {
 	public String getOptionText() {
 
 		return _name;
+	}
+
+	@Override
+	public Collection<Join> join() {
+
+		List<Join> joins = new ArrayList<Join>();
+		Join j = new Join("pay_countries", "pay_countries.country_code", "countries.country_code");
+		joins.add(j);
+		
+		return joins;
+		
 	}
 	
 	

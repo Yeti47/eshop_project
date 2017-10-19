@@ -11,8 +11,9 @@
 <%
 	
 	EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
+	dbAccess.setSelectDistinct(true);	
 
-	List<Country> countries = dbAccess.fetch(() -> new Country());
+	List<Country> countries = dbAccess.fetchJoined(() -> new Country());
 	
 	String countriesDbError = "";
 	String dbErrorVisibilty = "error-hidden";
