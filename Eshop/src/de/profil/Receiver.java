@@ -17,7 +17,7 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 	// Fields
 
 	private int 	 _rec_id 		= -1;
-	private String _title 		= "";
+	private Title _title 		=  Title.Frau;
 	private String _name 			= "";
 	private String _firstname = "";
 	private int    _addr_id 	= 0;
@@ -25,7 +25,7 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 	
 	// Constructors
 	
-	public Receiver(String title, String name, String firstname, Integer addr_id, Integer custom_id) {
+	public Receiver(Title title, String name, String firstname, Integer addr_id, Integer custom_id) {
 		
 		_title 		 = title;
 		_name  		 = name;
@@ -41,7 +41,7 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 
 	// Getters / Setters
 	
-	public String getTitle() {
+	public Title getTitle() {
 		return _title;
 	}
 	
@@ -61,7 +61,7 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 		return _custom_id;
 	}
 	
-	public void setTitle(String title) {
+	public void setTitle(Title title) {
 		_title = title;
 	}
 	
@@ -90,18 +90,28 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 	@Override
 	public void readFromDatabase(ResultSet rs) throws SQLException {
 		_rec_id 	 = rs.getInt("rec_id");
-		_title  	 = rs.getString("title");
+		//_title  	 = rs.getString("title");
 		_name 		 = rs.getString("name");
 		_firstname = rs.getString("firstname");
 		_addr_id	 = rs.getInt("addr_id");
 		_custom_id = rs.getInt("custom_id");
+		
+		String titleStr = rs.getString("title").toLowerCase();
+		
+		if(titleStr.equals("frau"))
+			_title = Title.Frau;
+		else if(titleStr.equals("herr"))
+			_title = Title.Herr;
+		else 
+			_title = Title.Firma;
+		
 	}
 
 	@Override
 	public DatasetAttributes writeToDatabase() {
 		DatasetAttributes attributes = new DatasetAttributes();
 		
-		attributes.setAttribute("title", _title);
+		attributes.setAttribute("title", _title.toString());
 		attributes.setAttribute("name", _name);
 		attributes.setAttribute("firstname", _firstname);
 		attributes.setAttribute("addr_id", _addr_id);
