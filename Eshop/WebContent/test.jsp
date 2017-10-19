@@ -9,6 +9,10 @@
 
 %><%
 
+OrderBean orderBean = new OrderBean(session, request);
+orderBean.initializeOrder();
+orderBean.saveOrder();
+
 // Bin jetzt auch dabei!
 // Kevin ist dabei!
 
