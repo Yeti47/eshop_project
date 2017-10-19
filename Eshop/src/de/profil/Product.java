@@ -21,7 +21,7 @@ public class Product implements IJoinedDatabaseObj {
 			"products.price AS price",
 			"products.active AS active",
 			"packages.package_fee AS package_fee",
-			"products.image AD image"
+			"products.image AS image"
 	};
 	
 	// Fields

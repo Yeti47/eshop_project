@@ -20,7 +20,8 @@ public class Bundle extends Product {
 			"bundles.descr AS descr",
 			"bundles.price AS price",
 			"bundles.active AS active",
-			"packages.package_fee AS package_fee"
+			"packages.package_fee AS package_fee",
+			"bundles.image AS image"
 	};
 	
 	// Fields
