@@ -26,6 +26,7 @@
 			<a href="kundendaten.jsp">Kundendaten</a>
 			<a href="zahlungsarten.jsp">Zahlungsarten</a>
 			<a href="uebersicht.jsp">Übersicht</a>
+			<a href="impressum.jsp">Impressum</a>
 		</div>
 	<h1>Impressum</h1>
 	<p>K.Adam's Electronics GmbH<br>

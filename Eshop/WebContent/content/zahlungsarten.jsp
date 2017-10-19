@@ -26,14 +26,13 @@
 			<a href="kundendaten.jsp">Kundendaten</a>
 			<a href="zahlungsarten.jsp">Zahlungsarten</a>
 			<a href="uebersicht.jsp">Übersicht</a>
+			<a href="impressum.jsp">Impressum</a>
+			
+
 		</div>
-	
 		<div>
-    	<h2>Sonstiges</h2>
-    		<ul>
-      			<li><a href="impressum.jsp">Impressum</a></li>
-          	</ul>
-  		</div>
+			<h1>Zahlungsarten</h1>
+		</div>
   </div>		
 </body>
 </html>
