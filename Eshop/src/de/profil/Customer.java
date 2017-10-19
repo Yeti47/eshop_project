@@ -20,7 +20,7 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	private String   _email 		= "";
 	private Bank     bank 			= new Bank();
 
-	public Customer(String title, String name, String firstname, Integer addr_id, Integer custom_id, String email) {
+	public Customer(Title title, String name, String firstname, Integer addr_id, Integer custom_id, String email) {
 		
 		super(title, name, firstname, addr_id, custom_id);
 		_email = email;
@@ -34,22 +34,6 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	
 	public Integer getCustom_id() {
 		return _custom_id;
-	}
-	
-	public String getTitle() {
-		return rec.getTitle();
-	}
-	
-	public String getName() {
-		return rec.getName();
-	}
-	
-	public String getFirstname() {
-		return rec.getFirstname();
-	}
-	
-	public Integer getAddr_id() {
-		return rec.getAddr_id();
 	}
 	
 	public String getEmail() {
@@ -68,22 +52,34 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 
 	@Override
 	public void readFromDatabase(ResultSet rs) throws SQLException {
+		super.readFromDatabase(rs);
+				
+		/* TODO: nochmal pruefen
 		_custom_id = rs.getInt("custom_id");
 		rec.setTitle(rs.getString("title"));
 		rec.setName(rs.getString("name"));
 		rec.setFirstname(rs.getString("firstname"));
 		rec.setAddr_id(rs.getInt("addr_id"));
+		
+		*/
 		_email 		 = rs.getString("email");
 	}
 
 	@Override
 	public DatasetAttributes writeToDatabase() {
+		
+		/*
 		DatasetAttributes attributes = new DatasetAttributes();
 		
 		attributes.setAttribute("title", rec.getTitle());
 		attributes.setAttribute("name", rec.getName());
 		attributes.setAttribute("firstname", rec.getFirstname());
 		attributes.setAttribute("addr_id", rec.getAddr_id());
+		attributes.setAttribute("email", _email);
+		
+		*/
+		
+		DatasetAttributes attributes = super.writeToDatabase();
 		attributes.setAttribute("email", _email);
 		
 		return attributes;

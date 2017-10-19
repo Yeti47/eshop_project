@@ -63,9 +63,51 @@ body {
 	
 }
 
+.error-hidden {
+	
+	display: none;
+	
+}
+
+.label-medium {
+	
+	display: inline-block;
+	width: 120px;
+	margin-bottom: 8px;
+	
+}
+
+.label-larrge {
+	
+	display: inline-block;
+	width: 260px;
+	margin-top: 4px;
+	margin-bottom: 8px;
+	
+}
+
+.content-left {
+	
+	display: inline-block;
+	min-width: 20%;
+	
+}
+
+.content-right {
+	
+	display: inline-block;
+	min-width: 80%;
+	
+}
+
+.form-group {
+	
+	margin-bottom: 32px;
+	
+}
+
 #container {
 	
-	width: 768px;
-	margin: auto;
+	min-width: 100%;
 	
 }
