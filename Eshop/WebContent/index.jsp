@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" 
-    import=
-    	"net.yetibyte.snowstorm.*, 
-    	de.profil.*,
+    import="de.profil.*,
     	de.profil.beans.*,
     	javax.sql.DataSource, 
     	java.util.*"
@@ -13,8 +11,7 @@
 // Bin jetzt auch dabei!
 // Kevin ist dabei!
 
-DataSource dataSource = Config.getDataSource();
-DatabaseAccessor dbAccess = new DatabaseAccessor(dataSource);
+EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 
 List<Country> countries = dbAccess.fetch(() -> new Country());
 List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'");
