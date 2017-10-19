@@ -63,6 +63,20 @@ body {
 	
 }
 
+.error-hidden {
+	
+	display: none;
+	
+}
+
+.label-medium {
+	
+	display: inline-block;
+	width: 120px;
+	margin-bottom: 8px;
+	
+}
+
 #container {
 	
 	width: 768px;
