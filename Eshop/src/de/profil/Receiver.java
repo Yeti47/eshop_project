@@ -23,6 +23,8 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 	private int    _addr_id 	= 0;
 	private int    _custom_id = 0;
 	
+	private Address _address = new Address();
+	
 	// Constructors
 	
 	public Receiver(Title title, String name, String firstname, Integer addr_id, Integer custom_id) {
@@ -77,6 +79,30 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 		_addr_id = addr_id;
 	}
 	
+	public void setTitleByString(String titleStr) {
+		
+		if(titleStr == null)
+			return;
+		
+		if(titleStr.toLowerCase().equals("frau"))
+			_title = Title.Frau;
+		else if(titleStr.toLowerCase().equals("herr"))
+			_title = Title.Herr;
+		else 
+			_title = Title.Firma;
+		
+	}
+	
+	public Address getAddress() {
+		return _address;
+	}
+
+	public void setAddress(Address address) {
+		_address = address;
+	}
+	
+	// Methods
+
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
@@ -98,12 +124,7 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 		
 		String titleStr = rs.getString("title").toLowerCase();
 		
-		if(titleStr.equals("frau"))
-			_title = Title.Frau;
-		else if(titleStr.equals("herr"))
-			_title = Title.Herr;
-		else 
-			_title = Title.Firma;
+		setTitleByString(titleStr);
 		
 	}
 
