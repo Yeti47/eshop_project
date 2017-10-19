@@ -17,8 +17,8 @@
 	orderBean.saveOrder();
 	
 	Order order = orderBean.getOrder();
-
-	
+	Product[] products = order.getAllProducts();
+		
 
 %>
     
@@ -35,22 +35,11 @@
 
 <div id="container">
 	
-			
-		<div class="nav">
-			<a href="../index.jsp">Startseite</a>
-			<a href="warenkorb.jsp">Warenkorb</a>
-			<a href="kundendaten.jsp">Kundendaten</a>
-			<a href="zahlungsarten.jsp">Zahlungsarten</a>
-			<a href="uebersicht.jsp">Übersicht</a>
-			<a href="impressum.jsp">Impressum</a>
-		</div>
-		<div>
-			<h1>Warenkorb</h1>
-		</div>	
+		<h1>Warenkorb</h1>
+		
+		<%=orderBean.listShoppingCartItems() %>
 
-  		<div>
-  		<button type="button">weiter Einkaufen</button>
-  		</div>
+  		<a href="../index.jsp"><button type="button">weiter Einkaufen</button></a>
   		
   </div>		
   </body>

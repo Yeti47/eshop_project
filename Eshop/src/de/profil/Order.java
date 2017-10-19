@@ -3,6 +3,7 @@ package de.profil;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,7 @@ public class Order implements IDatabaseWritable {
 	
 	// Nested Class
 	
-	private class Position implements IDatabaseWritable {
+	public class Position implements IDatabaseWritable {
 
 		private static final String POS_TABLE_NAME = "orders";
 		
@@ -25,6 +26,10 @@ public class Order implements IDatabaseWritable {
 		public Position(int index, Product product) {
 			_index = index;
 			_product = product;
+		}
+		
+		public Product getProduct() {
+			return _product;
 		}
 		
 		@Override
@@ -215,6 +220,31 @@ public class Order implements IDatabaseWritable {
 		}
 		
 		return true;
+		
+	}
+	
+	public Collection<Position> getPositions() {
+		
+		List<Position> positions = new ArrayList<Position>();
+		
+		int previousProdId = -1;
+		int posId = 1;
+		
+		_products.sort((p, q) -> p.getId() - q.getId());
+		
+		for(Product p : _products) {
+			
+			if(p.getId() != previousProdId) {
+				
+				positions.add(new Position(posId, p));
+				posId++;
+				previousProdId = p.getId();
+				
+			}
+			
+		}
+		
+		return positions;
 		
 	}
 	

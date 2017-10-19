@@ -9,6 +9,11 @@
 
 <%
 	
+	//Starten der Session und laden des evtl bereits bestehenden Order-Objekts
+	OrderBean orderBean = new OrderBean(session, request);
+	orderBean.initializeOrder();
+	orderBean.saveOrder();
+
 	EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 	dbAccess.setSelectDistinct(true);	
 

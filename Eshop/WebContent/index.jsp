@@ -9,11 +9,14 @@
 
 <%
 
+// Starten der Session und laden des evtl bereits bestehenden Order-Objekts
+OrderBean orderBean = new OrderBean(session, request);
+orderBean.initializeOrder();
+orderBean.saveOrder();
+
 
 EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 
-List<Country> countries = dbAccess.fetch(() -> new Country());
-List<Payment> payments = dbAccess.fetchJoined(() -> new Payment(), "pay_countries.country_code='DE'");
 List<Product> products = dbAccess.fetchJoined(() -> new Product());
 
 List<Bundle> bundles = dbAccess.fetchJoined(() -> new Bundle());
@@ -29,18 +32,9 @@ ProductBean pb = new ProductBean(products);
 
 String dbErrorMessage = "";
 
-Country[] countryArr = countries.toArray(new Country[0]);
-Arrays.sort(countryArr, (x, y) -> x.getName().compareTo(y.getName()));
-
-Payment[] paymentArr = payments.toArray(new Payment[0]);
-Arrays.sort(paymentArr, (x, y) -> x.getId() - y.getId());
-
-SelectBoxBuilder countryBean = new SelectBoxBuilder(countryArr);
-SelectBoxBuilder paymentBean = new SelectBoxBuilder(paymentArr);
-
 String prodTest = "";
 
-if(countries != null && payments != null && products != null) {
+if(products != null) {
 	
 	for(Product p : products)
 		prodTest += p.getName() + "<br>";
@@ -68,35 +62,24 @@ else {
 
 <%@include file="content/header.jsp" %>
 
+<div class="nav">
+	<a href="index.jsp">Startseite</a>
+	<a href="content/warenkorb.jsp">Warenkorb</a>
+	<a href="content/zahlungsarten.jsp">Zahlungsarten</a>
+	<a href="content/impressum.jsp">Impressum</a>
+</div>
+
 <div id="container">
 	
-	<p><%=dbErrorMessage %>
-		<div class="nav">
-			<a href="index.jsp">Startseite</a>
-			<a href="content/warenkorb.jsp">Warenkorb</a><tab>
-			<a href="content/kundendaten.jsp">Kundendaten</a><tab>
-			<a href="content/zahlungsarten.jsp">Zahlungsarten</a><tab>
-			<a href="content/uebersicht.jsp">Übersicht</a><tab>
-			<a href="content/impressum.jsp">Impressum</a>
-		</div>
+	<p><%=dbErrorMessage %></p>
 		
-	<h3>Wir beliefern folgende europäische Länder:</h3>
-	
-	<%=countryBean.htmlSelect("country", 1, "countries") %>
-	
-	<h3>In Deutschland bieten wir folgende Zahlungsmethoden an:</h3>
-	
-	<%=paymentBean.htmlSelect("payment", 1, "payments") %>
-	
-	<h3>Hier unsere Produktauswahl:</h3>
 	<div>
-	<%=pb.htmlProductsView() %>
+	
+		<%=pb.htmlProductsView() %>
 	
 	</div>
-	<br>
-	<br>
-	<br>
-	<button type="button">zum Warenkorb</button>
+
+	<a href="content/warenkorb.jsp"><button type="button">zum Warenkorb</button></a>
 	
 	
 	

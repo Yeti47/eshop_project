@@ -117,5 +117,35 @@ public class OrderBean {
 		_session.setAttribute("order", _order);
 		
 	}
+	
+	public String listShoppingCartItems() {
+		
+		String html = "";
+		
+		html += "<table>";
+		html += "<tr>";
+		html += "<th>Position</th><th>Artikelnr.</th><th>Bezeichung</th><th>Anzahl</th><th>Einzelpreis</th>";
+		html += "</tr>";
+		
+		if(_order != null) {
+			
+			int posId = 1;
+			
+			for(Order.Position p : _order.getPositions()) {
+				
+				html += "<tr>";
+				html += "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td><td>" + _order.countProducts(p.getProduct().getId()) + "</td><td>" + p.getProduct().getPrice() + "</td>" ; 
+				html += "</td>";
+				posId++;
+				
+			}
+			
+		}
+		
+		html += "</table>";
+		
+		return html;
+		
+	}
 
 }
