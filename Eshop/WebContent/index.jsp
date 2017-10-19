@@ -63,16 +63,16 @@ else {
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="css/main.css">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <title><%=Config.ESHOP_NAME %></title>
 </head>
 <body>
 
+<%@include file="content/header.jsp" %>
+
 <div id="container">
 	
-	<div class="header">
-		<h1>Willkommen bei <%=Config.ESHOP_NAME %></h1>
-		<h2>Bei uns nur das Beste!</h2>
-	</div>
+	
 
 	<p><%=dbErrorMessage %>
 	
