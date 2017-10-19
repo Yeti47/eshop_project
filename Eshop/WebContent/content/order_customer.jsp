@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" 
     import=
-    	"net.yetibyte.snowstorm.*, 
-    	de.profil.*,
+    	"de.profil.*,
     	de.profil.beans.*,
     	javax.sql.DataSource, 
     	java.util.*"
@@ -77,7 +76,7 @@
 </head>
 <body>
 
-<%@include file="../content/header.jsp" %>
+<%@include file="header.jsp" %>
 
 <div id="container">
 
@@ -155,9 +154,7 @@
 	
 	</div>
 
-
 </div>
-
 
 
 </body>
