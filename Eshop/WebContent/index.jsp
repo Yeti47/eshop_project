@@ -75,7 +75,7 @@ else {
 		
 	<div>
 	
-		<%=pb.htmlProductsView() %>
+	<%=pb.htmlProductsView() %>
 	
 	</div>
 
