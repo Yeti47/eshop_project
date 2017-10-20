@@ -71,15 +71,23 @@
 				address.setCountry(c);
 			
 		}
+		
+		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 	
 		customer.setAddress(address);
 		
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
 		
 		customerForm.setDeliveryAddressChecked(!"".equals(deliveryChecked));
-		customerForm.validateCustomer();
 		
-		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
+		boolean isValid = customerForm.validateCustomer();
+		
+		if(isValid) {
+			
+			pageContext.forward("order_payment.jsp");
+			
+		}
+		
 		
 	}
 	
