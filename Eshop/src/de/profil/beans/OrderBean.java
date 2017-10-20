@@ -3,6 +3,7 @@ package de.profil.beans;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import de.profil.Bundle;
 import de.profil.EshopDatabaseAccessor;
 import de.profil.Order;
 import de.profil.Product;
@@ -105,9 +106,16 @@ public class OrderBean {
 		
 		Product p = dbAccess.fetchJoinedSingle(() -> new Product(), "prod_id=?", new String[] { prodId });
 		
-		for(int i = 0; i < quantity; i++) {
+		if(p == null)
+			p = dbAccess.fetchJoinedSingle(() -> new Bundle(), "bundle_id=?", new String[] { prodId });
+		
+		if(p != null) {
+			
+			for(int i = 0; i < quantity; i++) {
 
-			_order.addProduct(p);
+				_order.addProduct(p);
+				
+			}
 			
 		}
 		

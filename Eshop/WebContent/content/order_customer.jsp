@@ -68,8 +68,7 @@
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
 		
 		customerForm.setDeliveryAddressChecked(!"".equals(deliveryChecked));
-		
-		// TODO: FEHLERMELDUNGEN
+		customerForm.validateCustomer();
 		
 		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 		
