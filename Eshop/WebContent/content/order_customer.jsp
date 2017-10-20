@@ -89,8 +89,10 @@
 
 	<div class="content-right">
 	
-		<form id="customer-form" action="order_customer.jsp" method="post">
+		<h1>Schritt 1</h1>
 	
+		<form id="customer-form" action="order_customer.jsp" method="post">
+		
 		<div class="form-group">
 		
 			<h2>Ihre Rechnungsanschrift:</h2>

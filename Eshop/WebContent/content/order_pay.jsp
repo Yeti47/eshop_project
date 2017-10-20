@@ -73,6 +73,8 @@
 
 	<div class="content-right">
 	
+		<h1>Schritt 2</h1>
+	
 		<form id="customer-form" action="order_customer.jsp" method="post">
 	
 		<div class="form-group">
@@ -119,7 +121,7 @@
 		
 		<div class="form-group">
 		
-			<a href="warenkorb.jsp" class="button">Zurück</a>
+			<a href="order_customer.jsp" class="button">Zurück</a>
 			<button type="submit" name="action" value="send2">Weiter</button>
 		
 		</div>
