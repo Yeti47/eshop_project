@@ -144,15 +144,17 @@
 			<label class="label-medium" for="country">Land:</label>
 			
 			<%=countryBuilder.htmlSelect("country", 1, "country", "country") %>
-			
+			<span class="form-error"><%=customerForm.getErrCountry() %></span>
 			<br>
 			
 			<label class="label-medium" for="email">E-Mail:</label>
 			<input type="text" id="email" name="email" value="<%=customer.getEmail() %>"/>
+			<span class="form-error"><%=customerForm.getErrEmail() %></span>
 			<br>
 			
 			<label class="label-medium" for="phone">Telefon:</label>
 			<input type="text" id="phone" name="phone" value="<%=customer.getPhone() %>"/>
+			<span class="form-error"><%=customerForm.getErrPhone() %></span>
 			<br>
 			
 			<label class="label-large" for="delivery">Ich möchte eine abweichende Lieferanschrift angeben:</label>
