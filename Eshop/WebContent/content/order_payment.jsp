@@ -12,6 +12,7 @@
 	dbAccess.setSelectDistinct(true);	
 
 	List<Country> countries = dbAccess.fetchJoined(() -> new Country());
+//	List<Payment> payments  = dbAccess.fetchJoined(() -> new Payment(), "country_code='DE'");
 	List<Payment> payments  = dbAccess.fetchJoined(() -> new Payment(), "country_code='" + WebUtility.getNonNullParam(request, "country") + "'");
 	
 	String countriesDbError = "";
@@ -45,14 +46,14 @@
 		dbErrorVisibilty = "";
 	}
 	
-	SelectBoxBuilder paymentBuilder = new SelectBoxBuilder(paymentArr);
-	paymentBuilder.setDefaultText("Bitte auswählen...");
-	paymentBuilder.setDefaultValue("-1");
-	
 	SelectBoxBuilder countryBuilder = new SelectBoxBuilder(countryArr);
 	countryBuilder.setDefaultText("Bitte auswählen...");
 	countryBuilder.setDefaultValue("-1");
-	
+
+	SelectBoxBuilder paymentBuilder = new SelectBoxBuilder(paymentArr);
+	paymentBuilder.setDefaultText("Bitte auswählen...");
+	paymentBuilder.setDefaultValue("-1");
+
 	Receiver receiver = new Receiver();
 	Address address = new Address();
 
@@ -77,6 +78,8 @@
 		
 		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 		paymentBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "payment"));
+		
+		
 	}
 %>
 

@@ -129,12 +129,19 @@ public class OrderBean {
 	
 	public String listShoppingCartItems() {
 		
-		String html = "";
+		final String tab2 = "\t\t";
+		final String tab3 = "\t\t\t";
+		final String tab4 = "\t\t\t\t";
+		final String tab5 = "\t\t\t\t\t";
+		final String newLine = "\n";
+		double value = 0;
 		
-		html += "<table>";
-		html += "<tr>";
-		html += "<th>Position</th><th>Artikelnr.</th><th>Bezeichung</th><th>Anzahl</th><th>Einzelpreis</th>";
-		html += "</tr>";
+		String html = "<div id='invoice'>"  + newLine;
+		
+		html += tab3 + "<table id='overview'>"  + newLine;
+		html += tab4 + "<tr>"  + newLine;
+		html += tab5 + "<th>Position</th><th>Artikelnr.</th><th>Bezeichung</th><th>Anzahl</th><th>Einzelpreis</th>"  + newLine;
+		html += tab4 + "</tr>"  + newLine;
 		
 		if(_order != null) {
 			
@@ -142,16 +149,16 @@ public class OrderBean {
 			
 			for(Order.Position p : _order.getPositions()) {
 				
-				html += "<tr>";
-				html += "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td><td>" + _order.countProducts(p.getProduct().getId()) + "</td><td>" + p.getProduct().getPrice() + "</td>" ; 
-				html += "</td>";
+				html += tab4 + "<tr class='position'>" + newLine;
+				html += tab5 + "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td><td>" + _order.countProducts(p.getProduct().getId()) + "</td><td>" + p.getProduct().getPrice() + "</td>" + newLine; 
+				html += tab4 + "</td>" + newLine;
 				posId++;
-				
+				value += (_order.countProducts(p.getProduct().getId()) * p.getProduct().getPrice());
 			}
-			
+			html += tab4 +"<tr class='total'><td></td><td></td><td></td><td><b>Gesamt:</b></td><td>"+ value +"</td></tr>" + newLine;
 		}
 		
-		html += "</table>";
+		html += tab3 +"</table>" + newLine + tab2 + "</div>" + newLine;
 		
 		return html;
 		
