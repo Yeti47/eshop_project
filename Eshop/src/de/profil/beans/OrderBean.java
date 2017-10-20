@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 import de.profil.EshopDatabaseAccessor;
 import de.profil.Order;
 import de.profil.Product;
-import de.profil.WebUtility;
 
 public class OrderBean {
 	

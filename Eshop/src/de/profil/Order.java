@@ -98,6 +98,12 @@ public class Order implements IDatabaseWritable {
 	
 	// Methods
 	
+	public Receiver getFinalReceiver() {
+		
+		return _receiver == null ? _customer : _receiver;
+		
+	}
+	
 	public Product[] getAllProducts() {
 		
 		return _products.toArray(new Product[0]);
@@ -192,8 +198,6 @@ public class Order implements IDatabaseWritable {
 		
 		Date d = Date.valueOf(LocalDate.now());
 		
-		// TODO: snowstORM unterstützt bislang nur das Schreiben von Strings, Typen-Unterscheidung einbauen!
-		// Evtl reicht die Benutzung von statement.setObject() anstelle von statement.setString(), je nach Treiber
 		dsAttributes.setAttribute("order_date", d);
 		
 		
@@ -205,19 +209,8 @@ public class Order implements IDatabaseWritable {
 		if(dbAccessor == null)
 			return false;
 		
-		int previousProdId = -1;
-		int posId = 1;
-		
-		for(Product p : _products) {
-			
-			if(p.getId() != previousProdId) {
-				
-				dbAccessor.insert(new Position(posId, p));
-				posId++;
-				
-			}
-			
-		}
+		for(Position p : getPositions())
+			dbAccessor.insert(p);
 		
 		return true;
 		
