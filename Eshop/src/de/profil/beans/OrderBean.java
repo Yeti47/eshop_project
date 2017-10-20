@@ -121,6 +121,8 @@ public class OrderBean {
 	
 	public String listShoppingCartItems() {
 		
+		double value = 0;
+		
 		String html = "";
 		
 		html += "<table>";
@@ -138,9 +140,10 @@ public class OrderBean {
 				html += "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td><td>" + _order.countProducts(p.getProduct().getId()) + "</td><td>" + p.getProduct().getPrice() + "</td>" ; 
 				html += "</td>";
 				posId++;
-				
+				value += (_order.countProducts(p.getProduct().getId()) * p.getProduct().getPrice());
 			}
 			
+			html += "<tr><td></td><td></td><td></td><td><b>Gesamtpreis</b></td><td>"+ value +"</td></tr>";
 		}
 		
 		html += "</table>";
