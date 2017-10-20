@@ -64,12 +64,13 @@
 		
 		if(isValid) {
 			
-			pageContext.forward("order_payment.jsp");
+			orderBean.getOrder().setCustomer(customer);
+			orderBean.saveOrder();
+			pageContext.forward("order_pay.jsp");
 			
 		}	
 		
 	}
-	
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -86,17 +87,13 @@
 
 <div id="container">
 
-	<div class="content-left">
-	
-	</div>
-	
 	<div class="content-right">
 	
 		<form id="customer-form" action="order_customer.jsp" method="post">
 	
 		<div class="form-group">
 		
-			<h2>Ihre Anschrift:</h2>
+			<h2>Ihre Rechnungsanschrift:</h2>
 			
 			<label class="label-medium" for="title">Anrede:</label>
 			<%=customerForm.titleSelectBox("title", "title") %>
@@ -160,6 +157,7 @@
 		
 		<div class="form-group">
 		
+			<a href="warenkorb.jsp" class="button">Zurück</a>
 			<button type="submit" name="action" value="send">Weiter</button>
 		
 		</div>
