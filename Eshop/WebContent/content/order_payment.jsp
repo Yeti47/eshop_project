@@ -12,8 +12,7 @@
 	dbAccess.setSelectDistinct(true);	
 
 	List<Country> countries = dbAccess.fetchJoined(() -> new Country());
-	List<Payment> payments  = dbAccess.fetchJoined(() -> new Payment(), "country_code='DE'");
-//	List<Payment> payments  = dbAccess.fetchJoined(() -> new Payment(), "country_code='" + WebUtility.getNonNullParam(request, "country") + "'");
+	List<Payment> payments  = dbAccess.fetchJoined(() -> new Payment(), "country_code='" + WebUtility.getNonNullParam(request, "country") + "'");
 	
 	String countriesDbError = "";
 	String paymentsDbError = "";
