@@ -1,7 +1,12 @@
 package de.profil.beans;
 
+import javax.servlet.http.HttpServletRequest;
+
+import de.profil.Address;
+import de.profil.Country;
 import de.profil.Customer;
 import de.profil.Title;
+import de.profil.WebUtility;
 
 public class CustomerForm {
 	
@@ -11,6 +16,8 @@ public class CustomerForm {
 	private final static String NEWLINE = "\n";
 	
 	// Fields
+	
+	private HttpServletRequest _request = null;
 	
 	private Customer _customer = null;
 	private String _errFirstName = "";
@@ -28,9 +35,15 @@ public class CustomerForm {
 
 	private String _errCountry = "";
 	
-	private boolean _isDeliveryAddressChecked = false;
-	
 	// Constructors
+	
+	public CustomerForm(HttpServletRequest request) {
+		
+		_customer = new Customer();
+		_customer.setAddress(new Address());
+		_request = request;
+		
+	}
 	
 	public CustomerForm(Customer customer) {
 		
@@ -96,16 +109,41 @@ public class CustomerForm {
 		return _errGeneral;
 	}
 	
-	public boolean isDeliveryAddressChecked() {
-		return _isDeliveryAddressChecked;
-	}
-
-
-	public void setDeliveryAddressChecked(boolean isDeliveryAddressChecked) {
-		_isDeliveryAddressChecked = isDeliveryAddressChecked;
-	}
-	
 	// Methods
+	
+	public void retrieveCustomerFromRequest(Country[] countries) {
+		
+		if(_request == null)
+			return;
+		
+		Customer customer = new Customer();
+		Address address = new Address();
+		
+		String countryCode = WebUtility.getNonNullParam(_request, "country");
+		
+		customer.setTitleByString(WebUtility.getNonNullParam(_request, "title"));
+		customer.setFirstname(WebUtility.getNonNullParam(_request, "firstname"));
+		customer.setName(WebUtility.getNonNullParam(_request, "lastname"));
+		customer.setEmail(WebUtility.getNonNullParam(_request, "email"));
+		customer.setPhone(WebUtility.getNonNullParam(_request, "phone"));
+		
+		address.setStreet(WebUtility.getNonNullParam(_request, "street"));
+		address.setHouseNumber(WebUtility.getNonNullParam(_request, "houseno"));
+		address.setPostCode(WebUtility.getNonNullParam(_request, "postcode"));
+		address.setCity(WebUtility.getNonNullParam(_request, "city"));
+		
+		for(Country c : countries) {
+			
+			if(c.getCode().equals(countryCode))
+				address.setCountry(c);
+			
+		}
+		
+		customer.setAddress(address);
+		
+		_customer = customer;
+		
+	}
 
 	public String titleSelectBox(String name, String id) {
 		
@@ -157,7 +195,7 @@ public class CustomerForm {
 		else if(_customer.getName().length() > 50) {
 			
 			isValid = false;
-			_errFirstName = "Bitte maximal 50 Zeichen eingeben.";
+			_errName = "Bitte maximal 50 Zeichen eingeben.";
 			
 		}
 		
@@ -214,6 +252,14 @@ public class CustomerForm {
 			
 		}
 		
+		boolean isDeliveryAddressChecked = false;
+		
+		if(_request != null) {
+			
+			isDeliveryAddressChecked = !"".equals(WebUtility.getNonNullParam(_request, "delivery"));
+			
+		}
+		
 		if(_customer.getAddress().getCountry() == null) {
 			
 			isValid = false;
@@ -221,7 +267,7 @@ public class CustomerForm {
 			
 		}
 		
-		else if(!_isDeliveryAddressChecked && !_customer.getAddress().getCountry().getCode().equals("DE")) {
+		else if(!isDeliveryAddressChecked && !_customer.getAddress().getCountry().getCode().equals("DE")) {
 			
 			if(_customer.getPhone().length() <= 0) {
 				

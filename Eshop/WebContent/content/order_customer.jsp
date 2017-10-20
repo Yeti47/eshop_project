@@ -40,11 +40,11 @@
 	SelectBoxBuilder countryBuilder = new SelectBoxBuilder(countryArr);
 	countryBuilder.setDefaultText("Bitte auswählen...");
 	countryBuilder.setDefaultValue("NONE");
-	
-	Customer customer = new Customer();
-	Address address = new Address();
-	
-	CustomerForm customerForm = new CustomerForm(customer);
+
+	CustomerForm customerForm = new CustomerForm(request);
+
+	Customer customer = customerForm.getCustomer();
+	Address address = customer.getAddress();
 	
 	String action = WebUtility.getNonNullParam(request, "action");
 	
@@ -52,33 +52,13 @@
 	
 	if(action.equals("send")) {
 		
-		String countryCode = WebUtility.getNonNullParam(request, "country");
-		
-		customer.setTitleByString(WebUtility.getNonNullParam(request, "title"));
-		customer.setFirstname(WebUtility.getNonNullParam(request, "firstname"));
-		customer.setName(WebUtility.getNonNullParam(request, "lastname"));
-		customer.setEmail(WebUtility.getNonNullParam(request, "email"));
-		customer.setPhone(WebUtility.getNonNullParam(request, "phone"));
-		
-		address.setStreet(WebUtility.getNonNullParam(request, "street"));
-		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
-		address.setPostCode(WebUtility.getNonNullParam(request, "postcode"));
-		address.setCity(WebUtility.getNonNullParam(request, "city"));
-		
-		for(Country c : countries) {
-			
-			if(c.getCode().equals(countryCode))
-				address.setCountry(c);
-			
-		}
+		customerForm.retrieveCustomerFromRequest(countryArr);
+		customer = customerForm.getCustomer();
+		address = customer.getAddress();
 		
 		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
-	
-		customer.setAddress(address);
 		
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
-		
-		customerForm.setDeliveryAddressChecked(!"".equals(deliveryChecked));
 		
 		boolean isValid = customerForm.validateCustomer();
 		
@@ -86,8 +66,7 @@
 			
 			pageContext.forward("order_payment.jsp");
 			
-		}
-		
+		}	
 		
 	}
 	

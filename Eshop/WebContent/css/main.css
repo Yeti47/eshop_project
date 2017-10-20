@@ -31,12 +31,7 @@ button{
 	background: -webkit-linear-gradient(top, #00b7ea 0%,#009ec3 100%); /* Chrome10-25,Safari5.1-6 */
 	background: linear-gradient(to bottom, #00b7ea 0%,#009ec3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b7ea', endColorstr='#009ec3',GradientType=0 ); /* IE6-9 */
-	/*
-	height: 120px;
-	
-	text-align:center;
-	
-	*/
+
 }
 
 .brand-logo {
@@ -122,6 +117,25 @@ button{
 	
 	margin-bottom: 32px;
 	
+}
+
+.form-group input[type="text"] {
+	
+	width: 180px;
+	
+}
+
+.country {
+	
+	width: 184px;
+	
+	
+}
+
+.form-error {
+	
+	color: red;
+
 }
 
 #container {
