@@ -71,31 +71,28 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 		return COLUMN_NAMES;
 	}
 	
-		@Override
-		public void readFromDatabase(ResultSet rs) throws SQLException {
-		
-			_name = rs.getString("name");
-			_owner = rs.getString("owner");
-			_bic = rs.getString("bic");
-			_iban = rs.getString("iban");
+	@Override
+	public void readFromDatabase(ResultSet rs) throws SQLException {
+	
+		_name = rs.getString("name");
+		_owner = rs.getString("owner");
+		_bic = rs.getString("bic");
+		_iban = rs.getString("iban");
 			
 	}	
-	
-
-
 		
-		@Override
-		public DatasetAttributes writeToDatabase() {
-			DatasetAttributes attributes = new DatasetAttributes();
-			
-			attributes.setAttribute("name", _name);
-			attributes.setAttribute("owner", _owner);
-			attributes.setAttribute("bic", _bic);
-			attributes.setAttribute("iban", _iban);
-			
-			
-			return attributes;
-		}
+	@Override
+	public DatasetAttributes writeToDatabase() {
+		DatasetAttributes attributes = new DatasetAttributes();
+		
+		attributes.setAttribute("name", _name);
+		attributes.setAttribute("owner", _owner);
+		attributes.setAttribute("bic", _bic);
+		attributes.setAttribute("iban", _iban);
+		
+		
+		return attributes;
+	}
 
 	
 }

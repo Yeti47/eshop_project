@@ -39,10 +39,12 @@
 	
 	SelectBoxBuilder countryBuilder = new SelectBoxBuilder(countryArr);
 	countryBuilder.setDefaultText("Bitte auswählen...");
-	countryBuilder.setDefaultValue("-1");
+	countryBuilder.setDefaultValue("NONE");
 	
 	Customer customer = new Customer();
 	Address address = new Address();
+	
+	CustomerForm customerForm = new CustomerForm(customer);
 	
 	String action = WebUtility.getNonNullParam(request, "action");
 	
@@ -64,6 +66,10 @@
 		customer.setAddress(address);
 		
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
+		
+		customerForm.setDeliveryAddressChecked(!"".equals(deliveryChecked));
+		
+		// TODO: FEHLERMELDUNGEN
 		
 		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 		
@@ -98,35 +104,37 @@
 			<h2>Ihre Anschrift:</h2>
 			
 			<label class="label-medium" for="title">Anrede:</label>
-			<select id="title" name="title">
-				<option value="Frau">Frau</option>
-				<option value="Herr">Herr</option>
-				<option value="Firma">Firma</option>
-			</select>
+			<%=customerForm.titleSelectBox("title", "title") %>
 			<br>
 			
 			<label class="label-medium" for="firstname">Vorname:</label>
 			<input type="text" id="firstname" name="firstname" value="<%=customer.getFirstname() %>"/>
+			<span class="form-error"><%=customerForm.getErrFirstName() %></span>
 			<br>
 			
 			<label class="label-medium" for="lastname">Name:</label>
 			<input type="text" id="lastname" name="lastname" value="<%=customer.getName() %>"/>
+			<span class="form-error"><%=customerForm.getErrName() %></span>
 			<br>
 			
 			<label class="label-medium" for="street">Straße:</label>
 			<input type="text" id="street" name="street" value="<%=address.getStreet() %>"/>
+			<span class="form-error"><%=customerForm.getErrStreet() %></span>
 			<br>
 			
 			<label class="label-medium" for="houseno">Hausnummer:</label>
 			<input type="text" id="houseno" name="houseno" value="<%=address.getHouseNumber() %>"/>
+			<span class="form-error"><%=customerForm.getErrHouseNumber() %></span>
 			<br>
 			
 			<label class="label-medium" for="postcode">PLZ:</label>
 			<input type="text" id="postcode" name="postcode" value="<%=address.getPostCode() %>"/>
+			<span class="form-error"><%=customerForm.getErrPostCode() %></span>
 			<br>
 			
 			<label class="label-medium" for="city">Ort:</label>
 			<input type="text" id="city" name="city" value="<%=address.getCity() %>"/>
+			<span class="form-error"><%=customerForm.getErrCity() %></span>
 			<br>
 			
 			<div class="error-db <%=dbErrorVisibilty %>">
@@ -136,15 +144,17 @@
 			<label class="label-medium" for="country">Land:</label>
 			
 			<%=countryBuilder.htmlSelect("country", 1, "country", "country") %>
-			
+			<span class="form-error"><%=customerForm.getErrCountry() %></span>
 			<br>
 			
 			<label class="label-medium" for="email">E-Mail:</label>
 			<input type="text" id="email" name="email" value="<%=customer.getEmail() %>"/>
+			<span class="form-error"><%=customerForm.getErrEmail() %></span>
 			<br>
 			
 			<label class="label-medium" for="phone">Telefon:</label>
-			<input type="text" id="phone" name="phone" value="<%=customer.getEmail() %>"/>
+			<input type="text" id="phone" name="phone" value="<%=customer.getPhone() %>"/>
+			<span class="form-error"><%=customerForm.getErrPhone() %></span>
 			<br>
 			
 			<label class="label-large" for="delivery">Ich möchte eine abweichende Lieferanschrift angeben:</label>
