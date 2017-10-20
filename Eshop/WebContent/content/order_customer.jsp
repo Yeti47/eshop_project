@@ -52,6 +52,8 @@
 	
 	if(action.equals("send")) {
 		
+		String countryCode = WebUtility.getNonNullParam(request, "country");
+		
 		customer.setTitleByString(WebUtility.getNonNullParam(request, "title"));
 		customer.setFirstname(WebUtility.getNonNullParam(request, "firstname"));
 		customer.setName(WebUtility.getNonNullParam(request, "lastname"));
@@ -62,15 +64,30 @@
 		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
 		address.setPostCode(WebUtility.getNonNullParam(request, "postcode"));
 		address.setCity(WebUtility.getNonNullParam(request, "city"));
+		
+		for(Country c : countries) {
+			
+			if(c.getCode().equals(countryCode))
+				address.setCountry(c);
+			
+		}
+		
+		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
 	
 		customer.setAddress(address);
 		
 		deliveryChecked = WebUtility.getNonNullParam(request, "delivery");
 		
 		customerForm.setDeliveryAddressChecked(!"".equals(deliveryChecked));
-		customerForm.validateCustomer();
 		
-		countryBuilder.setPreSelectedItem(WebUtility.getNonNullParam(request, "country"));
+		boolean isValid = customerForm.validateCustomer();
+		
+		if(isValid) {
+			
+			pageContext.forward("order_payment.jsp");
+			
+		}
+		
 		
 	}
 	
