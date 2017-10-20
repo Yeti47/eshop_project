@@ -214,14 +214,14 @@ public class CustomerForm {
 			
 		}
 		
-		if(_customer.getAddress().getCountry().getCode().equals("NONE")) {
+		if(_customer.getAddress().getCountry() == null) {
 			
 			isValid = false;
 			_errCountry = "Bitte ein Land auswählen.";
 			
 		}
 		
-		if(!_isDeliveryAddressChecked && !_customer.getAddress().getCountry().getCode().equals("DE")) {
+		else if(!_isDeliveryAddressChecked && !_customer.getAddress().getCountry().getCode().equals("DE")) {
 			
 			if(_customer.getPhone().length() <= 0) {
 				

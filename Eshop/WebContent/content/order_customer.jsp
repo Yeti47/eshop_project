@@ -52,6 +52,8 @@
 	
 	if(action.equals("send")) {
 		
+		String countryCode = WebUtility.getNonNullParam(request, "country");
+		
 		customer.setTitleByString(WebUtility.getNonNullParam(request, "title"));
 		customer.setFirstname(WebUtility.getNonNullParam(request, "firstname"));
 		customer.setName(WebUtility.getNonNullParam(request, "lastname"));
@@ -62,6 +64,13 @@
 		address.setHouseNumber(WebUtility.getNonNullParam(request, "houseno"));
 		address.setPostCode(WebUtility.getNonNullParam(request, "postcode"));
 		address.setCity(WebUtility.getNonNullParam(request, "city"));
+		
+		for(Country c : countries) {
+			
+			if(c.getCode().equals(countryCode))
+				address.setCountry(c);
+			
+		}
 	
 		customer.setAddress(address);
 		
