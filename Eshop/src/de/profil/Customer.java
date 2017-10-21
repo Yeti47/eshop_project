@@ -55,6 +55,8 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	public void setPhone(String phone) {
 		_phone = phone;
 	}
+	
+	// Methods
 
 	@Override
 	public String getTableName() {

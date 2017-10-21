@@ -17,7 +17,8 @@
 	orderBean.saveOrder();
 	
 	Order order = orderBean.getOrder();
-	Product[] products = order.getAllProducts();
+	
+	String nextButtonDisabled = order == null || order.getAllProducts().length <= 0 ? " disabled " : "";
 		
 
 %>
@@ -26,22 +27,43 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700" rel="stylesheet">
+
 <title><%=Config.ESHOP_NAME %></title>
 </head>
 <body>
 <%@include file="header.jsp" %>
 
-<div id="container">
+	<div class="container">
 	
-		<h1>Warenkorb</h1>
+		<div class="content">
 		
-		<%=orderBean.listShoppingCartItems() %>
+			<h1>Ihr Warenkorb</h1>
+		
+			<%=orderBean.listShoppingCartItems("cart-positions") %>
+			
+			<%=orderBean.shoppingCartSummary("cart-summary", "cart-summary-info", "cart-total-info") %>
+			
+			<div class="clear-fix"></div>
+			
+			<div class="justified-buttons">
+			
+		  		<form action="../index.jsp">
+		  			<button class="button button-medium button-default">Zur Produktauswahl</button>  		
+		  		</form>
+		  		
+		  		<form action="order_customer.jsp">
+		  			<button class="button button-medium button-positive" <%=nextButtonDisabled %>>Weiter</button>  		
+		  		</form>
+			
+			</div>
+		
+		</div>
 
-  		<a href="../index.jsp"><button type="button">Weiter Einkaufen</button></a>
-  		<a href="order_customer.jsp"><button type="button">Bestellen</button></a>
-  		
-  </div>		
-  </body>
+  </div>	
+  	
+</body>
 </html>

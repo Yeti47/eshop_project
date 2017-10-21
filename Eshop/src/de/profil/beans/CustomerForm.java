@@ -29,10 +29,6 @@ public class CustomerForm {
 	private String _errEmail = "";
 	private String _errPhone = "";
 	private String _errGeneral = "";
-	public String getErrCountry() {
-		return _errCountry;
-	}
-
 	private String _errCountry = "";
 	
 	// Constructors
@@ -66,6 +62,9 @@ public class CustomerForm {
 		_customer = customer;
 	}
 	
+	public String getErrCountry() {
+		return _errCountry;
+	}
 	
 	public String getErrFirstName() {
 		return _errFirstName;
@@ -272,7 +271,7 @@ public class CustomerForm {
 			if(_customer.getPhone().length() <= 0) {
 				
 				isValid = false;
-				_errPhone = "Für Lieferungen ist Ausland ist eine Telefonnummer erforderlich.";
+				_errPhone = "Für Lieferungen außerhalb Deutschlands ist eine Telefonnummer erforderlich.";
 				
 			}
 			

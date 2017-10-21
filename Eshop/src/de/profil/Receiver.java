@@ -101,6 +101,12 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 		_address = address;
 	}
 	
+	public String getTitleText() {
+		
+		return _title.toString();
+		
+	}
+	
 	// Methods
 
 	@Override

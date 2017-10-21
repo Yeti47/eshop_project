@@ -127,21 +127,22 @@ public class OrderBean {
 		
 	}
 	
-	public String listShoppingCartItems() {
+	public String listShoppingCartItems(String cssClass) {
 		
+		final String tab = "\t";
 		final String tab2 = "\t\t";
-		final String tab3 = "\t\t\t";
-		final String tab4 = "\t\t\t\t";
-		final String tab5 = "\t\t\t\t\t";
 		final String newLine = "\n";
-		double value = 0;
 		
-		String html = "<div id='invoice'>"  + newLine;
+		String html = "<table ";
 		
-		html += tab3 + "<table id='overview'>"  + newLine;
-		html += tab4 + "<tr>"  + newLine;
-		html += tab5 + "<th>Position</th><th>Artikelnr.</th><th>Bezeichung</th><th>Anzahl</th><th>Einzelpreis</th>"  + newLine;
-		html += tab4 + "</tr>"  + newLine;
+		if(cssClass != null)
+			html += "class='" + cssClass + "' ";
+		
+		html += ">" + newLine;
+		
+		html += tab + "<tr>"  + newLine;
+		html += tab2 + "<th>Position</th><th>Artikelnr.</th><th>Bezeichung</th><th>Einzelpreis</th><th>Anzahl</th><th>Verpackung</th><th>Gesamtpreis</th>"  + newLine;
+		html += tab + "</tr>"  + newLine;
 		
 		if(_order != null) {
 			
@@ -149,16 +150,107 @@ public class OrderBean {
 			
 			for(Order.Position p : _order.getPositions()) {
 				
-				html += tab4 + "<tr class='position'>" + newLine;
-				html += tab5 + "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td><td>" + _order.countProducts(p.getProduct().getId()) + "</td><td>" + p.getProduct().getPrice() + "</td>" + newLine; 
-				html += tab4 + "</td>" + newLine;
+				double unitPrice = p.getProduct().getPrice();
+				int quantity = _order.countProducts(p.getProduct().getId());
+				double packagingFee = p.getProduct().getPackageFee() * quantity;
+				double totalPrice = unitPrice * quantity + packagingFee;
+				
+				html += tab + "<tr class='position'>" + newLine;
+				html += tab2 + "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td>"
+						+ "<td>" + String.format("%.2f EUR", unitPrice) + "</td><td>" + quantity + "</td><td>" + String.format("%.2f EUR",packagingFee) + "</td>"
+						+ "<td>" + String.format("%.2f EUR", totalPrice) + "</td>" + newLine; 
+				html += tab + "</td>" + newLine;
 				posId++;
-				value += (_order.countProducts(p.getProduct().getId()) * p.getProduct().getPrice());
+				
 			}
-			html += tab4 +"<tr class='total'><td></td><td></td><td></td><td><b>Gesamt:</b></td><td>"+ value +"</td></tr>" + newLine;
+			
 		}
 		
-		html += tab3 +"</table>" + newLine + tab2 + "</div>" + newLine;
+		html += "</table>" + newLine;
+		
+		return html;
+		
+	}
+	
+	public String shoppingCartSummary(String cssClassTable, String cssClassEmptyInfo, String cssClassSumInfo) {
+		
+		final String tab = "\t";
+		final String tab2 = "\t\t";
+		final String newLine = "\n";
+		
+		String html = "<table ";
+		
+		if(cssClassTable != null)
+			html += "class ='" + cssClassTable + "' ";
+		
+		html += " >" + newLine;
+		
+		if(_order != null) {
+			
+			if(_order.countProducts() <= 0) {
+				
+				String infoParagraph = "<p " + newLine;
+				
+				if(cssClassEmptyInfo != null)
+					infoParagraph += "class='" + cssClassEmptyInfo + "' ";
+				
+				infoParagraph += " >Ups, es sieht so aus, als sei Ihr Warenkorb noch leer. <br> Das ist furchtbar! So verdienen wir kein Geld! <br><br>";
+				infoParagraph += "Tun Sie uns doch bitte den Gefallen und suchen Sie sich ein paar Produkte aus unserem vielfältigen Sortiment aus.</p>";
+				
+				return infoParagraph;
+				
+			}
+			
+			html += tab + "<tr>" + newLine;
+			html += tab2 + "<th>Vorläufiger Rechnungsbetrag:</th>";
+			
+			double total = _order.getTotalPackagingFee() + _order.getTotalProductsPrice();
+			
+			html += tab2 + "<td>" + String.format("%.2f EUR", total) + "</td>" + newLine;
+			html += tab +"</tr>" + newLine;
+			html += tab + "<tr>" + newLine;
+			
+			html += tab2 + "<th>Davon Verpackungsgebühr:</th>" ;
+			html += "<td>" + String.format("%.2f EUR", _order.getTotalPackagingFee()) + "</td>" + newLine;
+			html += tab +"</tr>" + newLine;
+			
+			html += tab + "<tr> " + newLine;
+			html += tab2 + "<td colspan='2' ";
+			
+			if(cssClassSumInfo != null)
+				html += "class= '" + cssClassSumInfo + "' ";
+			
+			html += ">Eventuell fallen zusätzliche Kosten für Versand und Zahlungsabwicklung an. <br><br>"
+					+ "Der endgültige Rechnungsbetrag wird am Ende des Bestellvorgangs angezeigt.</td>" + newLine;
+			html += tab +"</tr>" + newLine;
+			
+		}
+		
+		html += "</table>" + newLine;
+		
+		return html;
+		
+	}
+	
+	public String productCounter(String cssClass) {
+		
+		String html = "<div ";
+		
+		if(cssClass != null)
+			html += "class='" + cssClass + "' ";
+		
+		if(_order == null || _order.countProducts() < 1)
+			html += " style='visibility: hidden;' ";
+		
+		html += " >\n";
+		
+		if(_order != null) {
+			
+			html += _order.countProducts();
+			
+		}
+		
+		html += "</div>";
 		
 		return html;
 		

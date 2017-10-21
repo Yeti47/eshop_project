@@ -46,11 +46,11 @@
 	Customer customer = customerForm.getCustomer();
 	Address address = customer.getAddress();
 	
-	String action = WebUtility.getNonNullParam(request, "action");
+	String action = WebUtility.getNonNullParam(request, "action1");
 	
 	String deliveryChecked = "";
 	
-	if(action.equals("send")) {
+	if(action.equals("next")) {
 		
 		customerForm.retrieveCustomerFromRequest(countryArr);
 		customer = customerForm.getCustomer();
@@ -71,25 +71,31 @@
 		}	
 		
 	}
+	else if (action.equals("previous")) {
+		
+		pageContext.forward("warenkorb.jsp");
+		
+	}
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700" rel="stylesheet">
+
 <title><%=Config.ESHOP_NAME %></title>
 </head>
 <body>
 
 <%@include file="header.jsp" %>
 
-<div id="container">
+<div class="container">
 
-	<div class="content-right">
-	
-		<h1>Schritt 1</h1>
+	<div class="content">
 	
 		<form id="customer-form" action="order_customer.jsp" method="post">
 		
@@ -159,11 +165,16 @@
 		
 		<div class="form-group">
 		
-			<a href="warenkorb.jsp" class="button">Zurück</a>
-			<button type="submit" name="action" value="send">Weiter</button>
+			<div class="justified-buttons">
+	
+			  	<button class="button button-medium button-default" name="action1" value="previous">Zuück</button>  		
+	
+			  	<button class="button button-medium button-positive" name="action1" value="next">Weiter</button>  		
+				
+			</div>
 		
 		</div>
-	
+
 	</form>
 	
 	</div>

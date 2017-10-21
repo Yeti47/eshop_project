@@ -30,23 +30,65 @@
 	dbAccess.setSelectDistinct(true);	
 	
 	String countriesDbError = "";
-	String dbErrorVisibilty = "error-hidden";
+	String paymentDbError = "";
+	String countryErrorVisibilty = "error-hidden";
+	String paymentErrorVisibilty = "error-hidden";
 
 	List<Payment> payments = dbAccess.fetchJoined(() -> new Payment());
 	Payment[] paymentArr = null;
 	
 	if(payments == null) {
 		
-		countriesDbError = "Fehler beim Laden der verfügbaren Länder.";
-		dbErrorVisibilty = "";
+		countriesDbError = "Fehler beim Laden der verfügbaren Zahlarten.";
+		paymentErrorVisibilty = "";
 		
 	}
+	
+	List<Country> countries = dbAccess.fetchJoined(() -> new Country());
+
+	Country[] countryArr = null;
+	
+	if(countries != null) {
+		
+		countryArr = countries.toArray(new Country[0]);
+		Arrays.sort(countryArr, (x, y) -> x.getName().compareTo(y.getName()));
+				
+	}
+	else {
+		
+		countriesDbError = "Fehler beim Laden der verfügbaren Länder.";
+		countryErrorVisibilty = "";
+		
+	}
+	
+	SelectBoxBuilder countryBuilder = new SelectBoxBuilder(countryArr);
+	countryBuilder.setDefaultText("Bitte auswählen...");
+	countryBuilder.setDefaultValue("NONE");
+	
 	
 	SelectBoxBuilder paymentBuilder = new SelectBoxBuilder(paymentArr);
 	paymentBuilder.setDefaultText("Bitte auswählen...");
 	paymentBuilder.setDefaultValue("NONE");
 
 	Receiver receiver = new Receiver();
+	Address deliveryAddress = new Address();
+	
+	String deliveryReadonly = "";
+	
+	if(request.getAttribute("delivery") == null) {
+		
+		deliveryReadonly = "readonly";
+		countryBuilder.setReadonly(true);
+		countryBuilder.setReadonlyValue(address.getCountry().getName());
+		receiver = customer;
+		deliveryAddress = customer.getAddress();
+		
+		
+	}
+	else {
+		
+		
+	}
 	
 	String action = WebUtility.getNonNullParam(request, "action");
 
@@ -76,13 +118,59 @@
 		<h1>Schritt 2</h1>
 	
 		<form id="customer-form" action="order_customer.jsp" method="post">
-	
+		
+		<div class="form-gorup">
+		
+			<h2>Ihre Lieferanschrift:</h2>	
+			
+			<label class="label-medium" for="d_firstname">Vorname:</label>
+			<input type="text" id="d_firstname" name="d_firstname" value="<%=receiver.getFirstname() %>" <%=deliveryReadonly %>/>
+			
+			<br>
+			
+			<label class="label-medium" for="d_lastname">Name:</label>
+			<input type="text" id="d_lastname" name="d_lastname" value="<%=receiver.getName() %>" <%=deliveryReadonly %>/>
+
+			<br>
+			
+			<label class="label-medium" for="d_street">Straße:</label>
+			<input type="text" id="d_street" name="d_street" value="<%=deliveryAddress.getStreet() %>" <%=deliveryReadonly %>/>
+			
+			<br>
+			
+			<label class="label-medium" for="d_houseno">Hausnummer:</label>
+			<input type="text" id="d_houseno" name="d_houseno" value="<%=deliveryAddress.getHouseNumber() %>" <%=deliveryReadonly %>/>
+
+			<br>
+			
+			<label class="label-medium" for="d_postcode">PLZ:</label>
+			<input type="text" id="d_postcode" name="d_postcode" value="<%=deliveryAddress.getPostCode() %>" <%=deliveryReadonly %>/>
+			
+			<br>
+			
+			<label class="label-medium" for="d_city">Ort:</label>
+			<input type="text" id="d_city" name="d_city" value="<%=deliveryAddress.getCity() %>" <%=deliveryReadonly %>/>
+			
+			<br>
+			
+			<div class="error-db <%=countryErrorVisibilty %>">
+				<%=countriesDbError %>
+			</div>
+			
+			<label class="label-medium" for="d_country">Land:</label>
+			
+			<%=countryBuilder.htmlSelect("d_country", 1, "country", "d_country") %>
+			
+			<br>
+		
+		</div>
+		
 		<div class="form-group">
 		
 			<h2>Ihre Rechnungsanschrift:</h2>
 			
 			<label class="label-medium" for="title">Anrede:</label>
-			<input type="text" id="title" name="title" value="<%=customer.getTitle().toString() %>" readonly>
+			<input type="text" id="title" name="title" value="<%=customer.getTitleText() %>" readonly>
 			<br>
 			
 			<label class="label-medium" for="firstname">Vorname:</label>

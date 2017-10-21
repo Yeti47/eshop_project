@@ -7,6 +7,8 @@ public class SelectBoxBuilder {
 	private ISelectBoxOption[] _options = null;
 	private String _defaultText = null;
 	private String _defaultValue = null;
+	private boolean _isReadonly = false;
+	private String _readonlyValue = "";
 	
 	private String _preselectedValue = null;
 	
@@ -30,6 +32,22 @@ public class SelectBoxBuilder {
 
 	public void setOptions(ISelectBoxOption[] options) {
 		_options = options;
+	}
+
+	public boolean isReadonly() {
+		return _isReadonly;
+	}
+
+	public void setReadonly(boolean isReadonly) {
+		_isReadonly = isReadonly;
+	}
+
+	public String getReadonlyValue() {
+		return _readonlyValue;
+	}
+
+	public void setReadonlyValue(String readonlyValue) {
+		_readonlyValue = readonlyValue;
 	}
 
 	public String getDefaultText() {
@@ -64,6 +82,12 @@ public class SelectBoxBuilder {
 		
 		if(_options == null)
 			return html;
+		
+		if(_isReadonly) {
+			
+			return "<input type='text' name='"+name+"' id='"+cssId+"' value='"+_readonlyValue+"' readonly/>";
+			
+		}
 		
 		size = Math.max(1, size);
 		

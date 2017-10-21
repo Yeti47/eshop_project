@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import net.yetibyte.snowstorm.DatabaseAccessor;
 import net.yetibyte.snowstorm.DatasetAttributes;
 import net.yetibyte.snowstorm.IDatabaseWritable;
@@ -155,6 +153,12 @@ public class Order implements IDatabaseWritable {
 		
 	}
 	
+	public int countProducts() {
+		
+		return _products.size();
+		
+	}
+	
 	public double getTotalProductsPrice() {
 		
 		double total = 0;
@@ -176,6 +180,31 @@ public class Order implements IDatabaseWritable {
 			
 		}
 			
+		return total;
+		
+	}
+	
+	public double getTotalPackagingFee(int prodId) {
+		
+		double total = 0;
+		
+		for(Product p : getProductsById(prodId)) {
+			
+			total += p.getPackageFee();
+			
+		}
+			
+		return total;
+		
+	}
+	
+	public double getTotalPackagingFee() {
+		
+		double total = 0;
+		
+		for(Product p : _products)
+			total += p.getPackageFee();
+		
 		return total;
 		
 	}
