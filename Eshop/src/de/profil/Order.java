@@ -16,7 +16,7 @@ public class Order implements IDatabaseWritable {
 	
 	public class Position implements IDatabaseWritable {
 
-		private static final String POS_TABLE_NAME = "orders";
+		private static final String POS_TABLE_NAME = "positions";
 		
 		private int _index;
 		private Product _product;
@@ -42,6 +42,7 @@ public class Order implements IDatabaseWritable {
 			DatasetAttributes dsAttributes = new DatasetAttributes();
 			dsAttributes.setAttribute("order_id", _id);
 			dsAttributes.setAttribute("pos_id", _index);
+			dsAttributes.setAttribute("prod_id", _product.getId());
 			dsAttributes.setAttribute("quantity", countProducts(_product.getId()));
 			
 			return dsAttributes;
@@ -68,6 +69,10 @@ public class Order implements IDatabaseWritable {
 	
 	public int getId() {
 		return _id;
+	}
+	
+	public void setId(int id) {
+		_id = id;
 	}
 
 	public Customer getCustomer() {
@@ -248,19 +253,21 @@ public class Order implements IDatabaseWritable {
 	@Override
 	public DatasetAttributes writeToDatabase() {
 		
-		if(_customer == null || _receiver == null || _payment == null)
+		if(_customer == null || _payment == null)
 			return null;
 		
 		DatasetAttributes dsAttributes = new DatasetAttributes();
 		dsAttributes.setAttribute("custom_id", _customer.getCustom_id());
-		dsAttributes.setAttribute("rec_id", _receiver.getCustom_id());
+		
+		if(_receiver != null)
+			dsAttributes.setAttribute("rec_id", _receiver.getRecId());
 		
 		Date d = Date.valueOf(LocalDate.now());
 		
 		dsAttributes.setAttribute("order_date", d);
 		
+		return dsAttributes;
 		
-		return null;
 	}
 	
 	public boolean insertPositionsIntoDatabase(DatabaseAccessor dbAccessor) {
@@ -268,8 +275,13 @@ public class Order implements IDatabaseWritable {
 		if(dbAccessor == null)
 			return false;
 		
-		for(Position p : getPositions())
-			dbAccessor.insert(p);
+		for(Position p : getPositions()) {
+			
+			if(!dbAccessor.insert(p))
+				return false;
+			
+		}
+			
 		
 		return true;
 		

@@ -8,6 +8,7 @@ import net.yetibyte.snowstorm.IDatabaseReadable;
 import net.yetibyte.snowstorm.IDatabaseWritable;
 
 public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWritable {
+	
 	// Constants
 	
 	private static final String TABLE_NAME = "customers";
@@ -15,7 +16,7 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 
 	// Fields
 
-	private int      _custom_id = -1;
+	private int      _id = -1;
 	private Receiver rec 				= new Receiver();
 	private String   _email 		= "";
 	private Bank     _bank 			= new Bank();
@@ -36,9 +37,13 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	
 	// Getters / Setters
 	
-	public Integer getCustom_id() {
-		return _custom_id;
-	}
+//	public int getId() {
+//		return _id;
+//	}
+//	
+//	public void setId(int id) {
+//		_id = id;
+//	}
 	
 	public String getEmail() {
 		return _email;
@@ -83,31 +88,27 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 		super.readFromDatabase(rs);
 				
 		/* TODO: nochmal pruefen
-		_custom_id = rs.getInt("custom_id");
+		_id = rs.getInt("custom_id");
 		rec.setTitle(rs.getString("title"));
 		rec.setName(rs.getString("name"));
 		rec.setFirstname(rs.getString("firstname"));
 		rec.setAddr_id(rs.getInt("addr_id"));
 		
 		*/
-		_email 		 = rs.getString("email");
+		_email = rs.getString("email");
+		_phone = rs.getString("phon");
+		
 	}
 
 	@Override
 	public DatasetAttributes writeToDatabase() {
 		
-		/*
 		DatasetAttributes attributes = new DatasetAttributes();
 		
-		attributes.setAttribute("title", rec.getTitle());
-		attributes.setAttribute("name", rec.getName());
-		attributes.setAttribute("firstname", rec.getFirstname());
-		attributes.setAttribute("addr_id", rec.getAddr_id());
-		attributes.setAttribute("email", _email);
-		
-		*/
-		
-		DatasetAttributes attributes = super.writeToDatabase();
+		attributes.setAttribute("title", getTitle().toString());
+		attributes.setAttribute("name", getName());
+		attributes.setAttribute("firstname", getFirstname());
+		attributes.setAttribute("addr_id", getAddress().getId());
 		attributes.setAttribute("email", _email);
 		attributes.setAttribute("phon", _phone);
 		

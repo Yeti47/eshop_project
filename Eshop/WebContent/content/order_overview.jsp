@@ -26,9 +26,22 @@
 		
 	}
 	
+	String errorMessage = "";
+	
 	String action = WebUtility.getNonNullParam(request, "action5");
 	
-	if(action.equals("next")) {	
+	if(action.equals("order")) {
+		
+		if(writeOrderToDatabase(order)) {
+			
+			pageContext.forward("order_confirmation.jsp");
+			
+		}
+		else {
+			
+			errorMessage = "Leider ist bei der Übermittlung Ihrer Bestellung ein Fehler aufgetreten.";
+			
+		}
 		
 	}
 	else if(action.equals("previous")) {
@@ -50,6 +63,96 @@
 
 %>
 
+<%!
+
+	private boolean writeOrderToDatabase(Order order) {
+		
+		if(order == null)
+			return false;
+	
+		EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
+		
+		Customer customer = order.getCustomer();
+		Address invoiceAddr = customer.getAddress();
+		
+		if(!dbAccess.insert(invoiceAddr))
+			return false;
+		
+		Integer addrSeq = dbAccess.fetchCurrentSequenceValue("ADDR_SEQ");
+		
+		if(addrSeq == null)
+			return false;
+		
+		invoiceAddr.setId(addrSeq);
+		
+		if(!dbAccess.insert(customer))
+			return false;
+		
+		Integer customSeq = dbAccess.fetchCurrentSequenceValue("CUST_SEQ");
+		
+		if(customSeq == null)
+			return false;
+		
+		customer.setCustom_id(customSeq);
+		Receiver receiver = order.getReceiver();
+		
+		if(receiver != null) {
+			
+			Address deliveryAddr = receiver.getAddress();
+			
+			if(deliveryAddr == null)
+				return false;
+			
+			if(!dbAccess.insert(deliveryAddr))
+				return false;
+			
+			addrSeq = dbAccess.fetchCurrentSequenceValue("ADDR_SEQ");
+			
+			if(addrSeq == null)
+				return false;
+			
+			deliveryAddr.setId(addrSeq);	
+			receiver.setCustom_id(customSeq);
+			
+			if(!dbAccess.insert(receiver))
+				return false;
+			
+			Integer recId = dbAccess.fetchCurrentSequenceValue("CUST_SEQ");
+			
+			if(recId == null)
+				return false;
+			
+			receiver.setRecId(recId);
+			
+		}
+		
+		// Bei Bankeinzug
+		if(customer.getBank() != null) {
+			
+			customer.getBank().setCustId(customer.getCustom_id());
+			
+			if(!dbAccess.insert(customer.getBank())) {
+				return false;
+			}
+			
+		}
+		
+		if(!dbAccess.insert(order))
+			return false;
+		
+		Integer orderSeq = dbAccess.fetchCurrentSequenceValue("ORDER_SEQ");
+		
+		if(orderSeq == null)
+			return false;
+		
+		order.setId(orderSeq);
+
+		return order.insertPositionsIntoDatabase(dbAccess);
+		
+	}
+
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -68,6 +171,8 @@
 <div class="container">
 
 	<div class="content">
+	
+		<span class="form-error"><%=errorMessage %></span>
 	
 		<h1>Bestellübersicht:</h1>
 		
@@ -153,7 +258,7 @@
 			<div class="justified-buttons">
 	
 			  	<button class="button button-medium button-default" name="action5" value="previous">Zurück</button>  		
-			  	<button class="button button-medium button-neutral" name="action5" value="next">Jetzt bestellen!</button>  		
+			  	<button class="button button-medium button-neutral" name="action5" value="order">Jetzt bestellen!</button>  		
 				
 			</div>
 		

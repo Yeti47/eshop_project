@@ -164,6 +164,12 @@ public class OrderBean {
 		
 	}
 	
+	public void destroyOrder() {
+		
+		_session.removeAttribute("order");
+		
+	}
+	
 	public String listShoppingCartItems(String cssClass) {
 		
 		return listShoppingCartItems(cssClass, true);

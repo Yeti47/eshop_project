@@ -18,6 +18,7 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 	
 	// Fields
 	
+	private int _custId = -1;
 	private String _name = "";
 	private String _owner = "";
 	private String _bic = "";
@@ -44,6 +45,14 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 		return _name;
 	}
 	
+	public int getCustId() {
+		return _custId;
+	}
+
+	public void setCustId(int custId) {
+		_custId = custId;
+	}
+
 	public String getOwner() {
 		return _owner;
 	}
@@ -83,6 +92,7 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 		
 		DatasetAttributes attributes = new DatasetAttributes();
 		
+		attributes.setAttribute("custom_id", _custId);
 		attributes.setAttribute("name", _name);
 		attributes.setAttribute("owner", _owner);
 		attributes.setAttribute("bic", _bic);

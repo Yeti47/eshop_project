@@ -98,6 +98,10 @@ public class Address implements IJoinedDatabaseObj, IDatabaseWritable {
 	public int getId() {
 		return _id;
 	}
+	
+	public void setId(int id) {
+		_id = id;
+	}
 
 	// Methods
 	

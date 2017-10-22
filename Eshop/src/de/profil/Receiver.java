@@ -43,6 +43,14 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 
 	// Getters / Setters
 	
+	public int getRecId() {
+		return _rec_id;
+	}
+	
+	public void setRecId(int id) {
+		_rec_id = id;
+	}
+	
 	public Title getTitle() {
 		return _title;
 	}
@@ -55,12 +63,16 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 		return _firstname;
 	}
 	
-	public Integer getAddr_id() {
+	public int getAddr_id() {
 		return _addr_id;
 	}
 	
-	public Integer getCustom_id() {
+	public int getCustom_id() {
 		return _custom_id;
+	}
+	
+	public void setCustom_id(int id) {
+		_custom_id = id;
 	}
 	
 	public void setTitle(Title title) {
@@ -136,12 +148,13 @@ public class Receiver implements IDatabaseReadable, IDatabaseWritable {
 
 	@Override
 	public DatasetAttributes writeToDatabase() {
+		
 		DatasetAttributes attributes = new DatasetAttributes();
 		
 		attributes.setAttribute("title", _title.toString());
 		attributes.setAttribute("name", _name);
 		attributes.setAttribute("firstname", _firstname);
-		attributes.setAttribute("addr_id", _addr_id);
+		attributes.setAttribute("addr_id", _address.getId());
 		attributes.setAttribute("custom_id", _custom_id);
 		
 		return attributes;
