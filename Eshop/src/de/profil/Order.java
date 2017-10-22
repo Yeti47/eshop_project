@@ -221,6 +221,23 @@ public class Order implements IDatabaseWritable {
 		return total;
 		
 	}
+	
+	public double getFinalValue() {
+		
+		double total = getTotalPackagingFee();
+		total += getTotalProductsPrice();
+		
+		if(_payment != null)
+			total += _payment.getFee();
+		
+		Receiver finalReceiver = getFinalReceiver();
+		
+		if(finalReceiver != null && finalReceiver.getAddress() != null && finalReceiver.getAddress().getCountry() != null)
+			total += finalReceiver.getAddress().getCountry().getShippingFee();
+		
+		return total;
+		
+	}
 
 	@Override
 	public String getTableName() {

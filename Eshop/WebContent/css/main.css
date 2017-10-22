@@ -511,5 +511,60 @@ a.button {
 	
 }
 
+.details-container {
+	
+	display: inline-block;
+	margin-right: 50px;
+	border-left: 1px solid lightblue;
+	padding: 4px 12px;
+	margin-bottom: 28px;
+	
+}
 
+.input-details {
+	
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    min-height: 120px;
+	
+}
+
+.order-summary {
+	display: table;
+	min-width: 400px;
+	float: right;
+}
+
+.order-summary-row {
+	display: table-row;
+}
+
+.order-summary-col {
+	display: table-cell;
+}
+
+.order-summary-col:nth-child(1) {
+	font-weight: bold;
+	text-align: left;
+}
+
+.order-summary-col:nth-child(2) {
+	text-align: right;
+}
+
+.summary-total {
+	
+	background: #d6dada;
+	font-size: 1.1em;
+		
+}
+
+.summary-total .order-summary-col {
+	
+	padding-top: 16px;
+	border-top: 3px solid #8b9baf;
+	
+}
 

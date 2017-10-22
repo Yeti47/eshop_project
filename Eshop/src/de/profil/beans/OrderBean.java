@@ -3,6 +3,7 @@ package de.profil.beans;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import de.profil.Bank;
 import de.profil.Bundle;
 import de.profil.EshopDatabaseAccessor;
 import de.profil.Order;
@@ -316,5 +317,32 @@ public class OrderBean {
 		return html;
 		
 	}
+	
+	public String htmlPaymentDetails(String cssClass) {
+		
+		String html = "";
+		
+		if(_order == null || _order.getPayment() == null)
+			return html;
+		
+		html += "<ul " + (cssClass != null ? " class='"+cssClass+"' " : " ") + " >\n";
+		html += "\t <li>Zahlart: " + _order.getPayment().getName() + "</li>\n";
+		
+		if(_order.getPayment().getId() == 2 && _order.getCustomer() != null && _order.getCustomer().getBank() != null) {
+			
+			Bank bank = _order.getCustomer().getBank();
+			html += "\t <li>Bankname: " + bank.getName() + "</li>\n";
+			html += "\t <li>Kontoinhaber: " + bank.getOwner() + "</li>\n";
+			html += "\t <li>IBAN: " + bank.getIban() + "</li>\n";
+			html += "\t <li>BIC: " + bank.getBic() + "</li>\n";
+			
+		}
+		
+		html += "</ul>\n";
+		
+		return html;
+		
+	}
+	
 
 }
