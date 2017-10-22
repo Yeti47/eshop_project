@@ -2,7 +2,6 @@ package de.profil.beans;
 
 import java.util.Collection;
 
-import de.profil.Country;
 import de.profil.Product;
 
 /**
@@ -33,7 +32,6 @@ public class ProductBean {
 		if(_products == null)
 			return html;
 			
-		final String tab = "\t";
 		final String newLine = "\n";
 
 		html += "<ul id='products'>";
@@ -91,6 +89,64 @@ public class ProductBean {
 		}
 		
 		return html + "</table>" + newLine;
+		
+	}
+	
+	public String htmlProductsOverview(String imagePath, String cssClassEachProduct, String cssClassRow, String cssClassCell) {
+		
+		String html = "";
+		
+		if(_products == null)
+			return html;
+		
+		final String tab = "\t";
+		final String tab2 = "\t\t";
+		final String newLine = "\n";
+		
+		if(imagePath == null)
+			imagePath = "";
+		
+		if(imagePath.endsWith("/")) {
+			
+			imagePath = imagePath.substring(0, imagePath.length() - 1);
+			
+		}
+		
+		for(Product p : _products) {
+			
+			html += "<div ";
+			
+			if(cssClassEachProduct != null)
+				html += " class='" + cssClassEachProduct + "' ";
+			
+			html += " ><div class='"+ (cssClassRow == null ? "row" : cssClassRow) + "' >" + newLine;
+			
+			html += tab + "<div class='" + (cssClassCell == null ? "cell" : cssClassCell) + "' >" + newLine;
+			html += tab2 + "<img src='" + imagePath + "/" + p.getImageName() + "' alt='" + p.getName() + "' />" + newLine;
+			html += tab + "</div>" + newLine;
+			
+			html += tab + "<div class='" + (cssClassCell == null ? "cell" : cssClassCell) + "' >" + newLine;
+			html += tab2 + "<h1>" + p.getName() + "</h1>" + newLine;
+			html += tab2 + "<p>" + p.getDescription() + "</p>" + newLine;
+			html += tab + "</div>" + newLine;
+			
+			html += tab + "<div class='" + (cssClassCell == null ? "cell" : cssClassCell) + "' >" + newLine;
+			html += tab2 + "<h2>" + String.format("%.2f EUR", p.getPrice()) + "</h2>" + newLine;
+			html += tab2 + "<h3> zzgl. Verpackung: " + String.format("%.2f EUR", p.getPackageFee()) + "</h2>" + newLine;
+			
+			html += tab2 + "<form action='content/warenkorb.jsp' method='post'>" + newLine;
+			html += tab2 + tab + "<input type='number' name='quantity' value='1' />" + newLine;
+			html += tab2 + tab + "<button class='button button-small button-neutral' name='add' value='" + p.getId() + "'>In den Warenkorb</button>" + newLine;
+			
+			html += tab2 + "</form>" + newLine;
+			html += tab + "</div>" + newLine;
+
+			html += "</div></div>" + newLine;
+			
+		}
+		
+		return html;
+		
 		
 	}
 		

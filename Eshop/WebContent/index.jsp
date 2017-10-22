@@ -17,35 +17,31 @@ orderBean.saveOrder();
 
 EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 
-List<Product> products = dbAccess.fetchJoined(() -> new Product());
+List<Product> products = dbAccess.fetchJoined(() -> new Product(), "active=1");
 
-List<Bundle> bundles = dbAccess.fetchJoined(() -> new Bundle());
+String productsError = products == null ? "Es ist ein Fehler beim Laden der Produkte aufgetreten. Sorry! :(" : "";
 
-for(Bundle b : bundles) {
+ProductBean productBean = new ProductBean(products);
+
+List<Bundle> bundles = dbAccess.fetchJoined(() -> new Bundle(), "active=1");
+List<Product> bundleProducts = new ArrayList<Product>();
+
+String bundleError = "Es ist ein Fehler beim Laden der Bundles aufgetreten. Tut uns schrecklich leid! :(";
+
+if(bundles != null) {
 	
-	b.fetchProducts(dbAccess);
-	products.add(b);
+	bundleError = "";
 	
-}
-
-ProductBean pb = new ProductBean(products);
-
-String dbErrorMessage = "";
-
-String prodTest = "";
-
-if(products != null) {
-	
-	for(Product p : products)
-		prodTest += p.getName() + "<br>";
-	
-}
-else {
-	
-	dbErrorMessage = "Es ist ein Fehler bei der Verbindung zur Datenbank aufgetreten.";
+	for(Bundle b : bundles) {
+		
+		b.fetchProducts(dbAccess);
+		bundleProducts.add(b);
+		
+	}
 	
 }
 
+ProductBean bundleBean = new ProductBean(bundleProducts);
 
 
 %>
@@ -67,11 +63,23 @@ else {
 
 <div class="container">
 	
-	<p><%=dbErrorMessage %></p>
-		
-	<div>
+	<div class="products-overview">
 	
-	<%=pb.htmlProductsView() %>
+		<h2>Aktuellen Sonderangebote:</h2>
+	
+		<p><%=bundleError %></p>
+		
+		<%=bundleBean.htmlProductsOverview("img", "content product-details", "row", "cell") %> 
+	
+	</div>
+		
+	<div class="products-overview">
+	
+		<h2>Unsere Produkte:</h2>
+	
+		<p><%=productsError %></p>
+		
+		<%=productBean.htmlProductsOverview("img", "content product-details", "row", "cell") %> 
 	
 	</div>
 

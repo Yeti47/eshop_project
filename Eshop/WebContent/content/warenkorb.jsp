@@ -13,6 +13,7 @@
 	OrderBean orderBean = new OrderBean(session, request);
 	orderBean.initializeOrder();
 	orderBean.addProductsFromRequest();
+	orderBean.removeProductFromRequest();
 	
 	orderBean.saveOrder();
 	

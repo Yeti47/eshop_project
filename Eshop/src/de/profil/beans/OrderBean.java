@@ -121,6 +121,42 @@ public class OrderBean {
 		
 	}
 	
+	public boolean removeProductFromRequest() {
+		
+		if(_order == null || _request == null)
+			return false;
+		
+		String prodIdStr = _request.getParameter("remove");
+		String quantityStr = _request.getParameter("quantity");
+		
+		if(prodIdStr == null || quantityStr == null)
+			return false;
+		
+		int prodId, quantity = 0;
+		
+		try {
+			prodId = Integer.parseInt(prodIdStr);
+			quantity = Integer.parseInt(quantityStr);
+		}
+		catch (NumberFormatException e) {
+			return false;
+		}
+		
+		for(int i = 0; i < quantity; i++) {
+			
+			Product prod = _order.getProductById(prodId);
+			
+			if(prod == null)
+				break;
+			
+			_order.removeProduct(prod);
+			
+		}
+	
+		return true;
+		
+	}
+	
 	public void saveOrder() {
 		
 		_session.setAttribute("order", _order);
@@ -155,9 +191,16 @@ public class OrderBean {
 				double packagingFee = p.getProduct().getPackageFee() * quantity;
 				double totalPrice = unitPrice * quantity + packagingFee;
 				
+				String quantityCell = quantity + "<br><form action='warenkorb.jsp' method='post'>" + newLine;
+				quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-positive' name='add' value='" + p.getProduct().getId()  +"' >+</button>" + newLine;
+				quantityCell += "</form>" + newLine;
+				quantityCell += "<form action='warenkorb.jsp' method='post'>" + newLine;
+				quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-negative' name='remove' value='" + p.getProduct().getId()  +"' >-</button>" + newLine;
+				quantityCell += "</form>" + newLine;
+				
 				html += tab + "<tr class='position'>" + newLine;
 				html += tab2 + "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td>"
-						+ "<td>" + String.format("%.2f EUR", unitPrice) + "</td><td>" + quantity + "</td><td>" + String.format("%.2f EUR",packagingFee) + "</td>"
+						+ "<td>" + String.format("%.2f EUR", unitPrice) + "</td><td>" + quantityCell + "</td><td>" + String.format("%.2f EUR",packagingFee) + "</td>"
 						+ "<td>" + String.format("%.2f EUR", totalPrice) + "</td>" + newLine; 
 				html += tab + "</td>" + newLine;
 				posId++;

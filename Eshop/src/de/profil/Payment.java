@@ -14,7 +14,7 @@ public class Payment implements IJoinedDatabaseObj, ISelectBoxOption {
 
 	// Constants
 	
-	private final static String TABLE_NAME = "pay_countries";
+	private final static String TABLE_NAME = "payments";
 	private final static String[] COLUMN_NAMES = new String[] { "pay_countries.pay_id", "pay_countries.pay_fee", "payments.name" };
 	
 	// Fields
@@ -25,12 +25,20 @@ public class Payment implements IJoinedDatabaseObj, ISelectBoxOption {
 	
 	private double _fee = 0.0;
 	
+	private boolean _fetchNameOnly = false;
+	
 	// Constructor
 	
 	public Payment(int id, String name, double fee) {
 		_id = id;
 		_name = name;
 		_fee = fee;
+	}
+	
+	public Payment(boolean fetchNameOnly) {
+		
+		_fetchNameOnly = true;
+		
 	}
 
 	public Payment() {
@@ -61,17 +69,22 @@ public class Payment implements IJoinedDatabaseObj, ISelectBoxOption {
 	@Override
 	public String[] getColumnNames() {
 
-		return COLUMN_NAMES;
+		return !_fetchNameOnly ? COLUMN_NAMES : new String[] { "name" };
 		
 	}
 
 	@Override
 	public void readFromDatabase(ResultSet rs) throws SQLException {
 		
-		_id = rs.getInt("pay_id");
 		_name = rs.getString("name");
-		_fee = rs.getDouble("pay_fee");
-		
+
+		if(!_fetchNameOnly) {
+			
+			_id = rs.getInt("pay_id");
+			_fee = rs.getDouble("pay_fee");
+			
+		}
+
 	}
 
 	@Override
@@ -79,7 +92,7 @@ public class Payment implements IJoinedDatabaseObj, ISelectBoxOption {
 
 		List<Join> joins = new ArrayList<Join>();
 		
-		Join j = new Join("payments", "pay_countries.pay_id", "payments.pay_id");
+		Join j = new Join("pay_countries", "payments.pay_id", "pay_countries.pay_id");
 		joins.add(j);
 		
 		return joins;

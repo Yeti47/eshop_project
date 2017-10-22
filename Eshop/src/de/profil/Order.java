@@ -138,6 +138,19 @@ public class Order implements IDatabaseWritable {
 		
 	}
 	
+	public Product getProductById(int prodId) {
+		
+		for(Product p : _products) {
+			
+			if(p.getId() == prodId)
+				return p;
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public int countProducts(int prodId) {
 		
 		int count = 0;

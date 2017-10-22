@@ -1,20 +1,17 @@
 package de.profil.beans;
 
-import java.util.Collection;
-
 import de.profil.Payment;
 
 /**
  * 
  * @author Alexander Herrfurth
- * @deprecated Ersetzt durch {@link SelectBoxBuilder}.
+ * 
  */
-@Deprecated
 public class PaymentBean {
 	
 	// Fields
 	
-	private Collection<Payment> _payments = null;
+	private Payment[] _payments = null;
 	
 	// Constructors
 	
@@ -22,7 +19,15 @@ public class PaymentBean {
 		
 	}
 	
-	public PaymentBean(Collection<Payment> payments) {
+	public PaymentBean(Payment[] payments) {
+		
+		_payments = payments;
+		
+	}
+	
+	// Getters / Setters
+	
+	public void setPayments(Payment[] payments) {
 		
 		_payments = payments;
 		
@@ -30,6 +35,12 @@ public class PaymentBean {
 	
 	// Methods
 	
+	/**
+	 * 
+	 * @deprecated Ersetzt durch {@link SelectBoxBuilder}.
+	 * @return
+	 */
+	@Deprecated
 	public String htmlSelect(String name, int size, String defaultOption, String cssClass, String cssId) {
 		
 		String html = "";
@@ -62,6 +73,31 @@ public class PaymentBean {
 		}
 		
 		return html + "</select>" + newLine;
+		
+	}
+	
+	public String htmlList(String cssClass) {
+		
+		String html = "<ul ";
+		
+		if(cssClass != null)
+			html += " class='" + cssClass + "' ";
+		
+		html += " >\n";
+		
+		if(_payments != null) {
+			
+			for(Payment p : _payments) {
+				
+				html += "\t<li>" + p.getName() + "</li>\n";
+				
+			}
+			
+		}
+		
+		html += "</ul>\n";
+		
+		return html;
 		
 	}
 
