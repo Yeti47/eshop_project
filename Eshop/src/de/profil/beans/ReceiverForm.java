@@ -207,7 +207,7 @@ public class ReceiverForm {
 			
 		}
 		
-		if(_receiver.getAddress().getHouseNumber().length() <= 0 || _receiver.getAddress().getHouseNumber().length() > 10) {
+		if(_receiver.getAddress().getHouseNumber().length() <= 0 || _receiver.getAddress().getHouseNumber().length() > 8) {
 			
 			isValid = false;
 			_errHouseNumber = "Bitte eine gültige Hausnummer eingeben.";

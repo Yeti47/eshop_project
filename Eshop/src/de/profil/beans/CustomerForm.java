@@ -211,7 +211,7 @@ public class CustomerForm {
 			
 		}
 		
-		if(_customer.getAddress().getHouseNumber().length() <= 0 || _customer.getAddress().getHouseNumber().length() > 10) {
+		if(_customer.getAddress().getHouseNumber().length() <= 0 || _customer.getAddress().getHouseNumber().length() > 8) {
 			
 			isValid = false;
 			_errHouseNumber = "Bitte eine gültige Hausnummer eingeben.";

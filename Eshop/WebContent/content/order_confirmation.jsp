@@ -42,7 +42,7 @@
 
 	<div class="content">
 	
-		<h1>Vielen Dank für Ihe Bestellung!</h1>
+		<h1>Vielen Dank für Ihre Bestellung!</h1>
 		
 		<p>
 		Ihre Bestellung mit der Nummer <%=orderId %> ist bei uns eingegangen und wird bearbeitet, sobald wir Lust dazu haben.
