@@ -75,7 +75,7 @@
 					if(p.getId() == 2)
 						pageContext.forward("order_bank.jsp");
 					else
-						pageContext.forward("../index.jsp");
+						pageContext.forward("order_overview.jsp");
 					
 				}
 				

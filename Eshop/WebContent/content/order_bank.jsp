@@ -25,10 +25,21 @@
 	}
 	
 	Bank bankDetails = new Bank();
-	
+	BankDetailsForm bankDetailsForm = new BankDetailsForm(request);
+		
 	String action = WebUtility.getNonNullParam(request, "action4");
 
 	if(action.equals("next")) {
+		
+		bankDetails = bankDetailsForm.retrieveBankDetailsFromRequest();
+		
+		if(bankDetailsForm.validate()) {
+			
+			customer.setBank(bankDetails);
+			orderBean.saveOrder();
+			pageContext.forward("order_overview.jsp");
+			
+		}
 		
 		
 	}
@@ -61,7 +72,7 @@
 	
 		<h1>Ihre Bankverbindung:</h1>
 	
-		<form id="payment-form" action="order_bank.jsp" method="post">
+		<form id="bank-form" action="order_bank.jsp" method="post">
 		
 		<div class="form-group">
 		
@@ -69,18 +80,22 @@
 		
 			<label class="label-medium" for="bankname">Bankname:</label>
 			<input type="text" id="bankname" name="bankname" value="<%=bankDetails.getName() %>"/>
+			<span class="form-error"><%=bankDetailsForm.getErrorName() %></span>
 			<br>
 			
 			<label class="label-medium" for="owner">Kontoinhaber:</label>
 			<input type="text" id="owner" name="owner" value="<%=bankDetails.getOwner() %>"/>
+			<span class="form-error"><%=bankDetailsForm.getErrorOwner() %></span>
 			<br>
 			
 			<label class="label-medium" for="iban">IBAN:</label>
 			<input type="text" id="iban" name="iban" value="<%=bankDetails.getIban() %>"/>
+			<span class="form-error"><%=bankDetailsForm.getErrorIban() %></span>
 			<br>
 			
 			<label class="label-medium" for="bic">BIC:</label>
 			<input type="text" id="bic" name="bic" value="<%=bankDetails.getBic() %>"/>
+			<span class="form-error"><%=bankDetailsForm.getErrorBic() %></span>
 			<br>
 		
 		</div>

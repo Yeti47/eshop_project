@@ -18,7 +18,7 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 	private int      _custom_id = -1;
 	private Receiver rec 				= new Receiver();
 	private String   _email 		= "";
-	private Bank     bank 			= new Bank();
+	private Bank     _bank 			= new Bank();
 	private String _phone = "";
 
 	// Constructors
@@ -54,6 +54,16 @@ public class Customer extends Receiver implements IDatabaseReadable, IDatabaseWr
 
 	public void setPhone(String phone) {
 		_phone = phone;
+	}
+	
+	public Bank getBank() {
+		
+		return _bank;
+		
+	}
+	
+	public void setBank(Bank bank) {
+		_bank = bank;
 	}
 	
 	// Methods

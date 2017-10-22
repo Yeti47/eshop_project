@@ -165,6 +165,18 @@ public class OrderBean {
 	
 	public String listShoppingCartItems(String cssClass) {
 		
+		return listShoppingCartItems(cssClass, true);
+		
+	}
+	
+	public String orderOverview(String cssClass) {
+		
+		return listShoppingCartItems(cssClass, false);
+		
+	}
+	
+	private String listShoppingCartItems(String cssClass, boolean adjustableQuantity) {
+		
 		final String tab = "\t";
 		final String tab2 = "\t\t";
 		final String newLine = "\n";
@@ -191,12 +203,18 @@ public class OrderBean {
 				double packagingFee = p.getProduct().getPackageFee() * quantity;
 				double totalPrice = unitPrice * quantity + packagingFee;
 				
-				String quantityCell = quantity + "<br><form action='warenkorb.jsp' method='post'>" + newLine;
-				quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-positive' name='add' value='" + p.getProduct().getId()  +"' >+</button>" + newLine;
-				quantityCell += "</form>" + newLine;
-				quantityCell += "<form action='warenkorb.jsp' method='post'>" + newLine;
-				quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-negative' name='remove' value='" + p.getProduct().getId()  +"' >-</button>" + newLine;
-				quantityCell += "</form>" + newLine;
+				String quantityCell = "" + quantity;
+				
+				if(adjustableQuantity) {
+					
+					quantityCell += "<br><form action='warenkorb.jsp' method='post'>" + newLine;
+					quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-positive' name='add' value='" + p.getProduct().getId()  +"' >+</button>" + newLine;
+					quantityCell += "</form>" + newLine;
+					quantityCell += "<form action='warenkorb.jsp' method='post'>" + newLine;
+					quantityCell += tab + "<input type='number' name='quantity' value='1' style='width:20px;' /><button class='button button-negative' name='remove' value='" + p.getProduct().getId()  +"' >-</button>" + newLine;
+					quantityCell += "</form>" + newLine;
+					
+				}
 				
 				html += tab + "<tr class='position'>" + newLine;
 				html += tab2 + "<td>" + posId + "</td><td>" + p.getProduct().getId() + "</td><td>" + p.getProduct().getName() + "</td>"

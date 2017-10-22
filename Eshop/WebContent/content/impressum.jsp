@@ -27,21 +27,31 @@
 		
 			<h1>Impressum</h1>
 		
-		<p>
-			K.Adam's Electronics GmbH<br>
-			Mordsgaudistr. 96 - D. 30167 Hannover<br>     
-			mob.: +49.172-12345678<br>
-			verantw.: Alle<br>
-			IHK Hannover, St.-Nr. 18/404/30167<br>
-		</p>
-	
-		<p>
-			Texte und Bilder dieser Seiten unterliegen dem Urheberrecht. 
-			Der Inhalt darf ohne schriftliche Genehmigung weder bearbeitet, 
-			übersetzt, vervielfältigt oder verbreitet, noch sonst gewerblich auf Druckmedien 
-			oder elektronischem Wege vertrieben werden. Wir übernehmen keine Haftung für 
-			die Inhalte externer Links, für deren Inhalt sind ausschließlich deren Betreiber verantwortlich.
-		</p>
+			<p>
+				K.Adam's Electronics GmbH<br>
+				Mordsgaudistr. 96 - D. 30167 Hannover<br>     
+				mob.: +49.172-12345678<br>
+				verantw.: Alle<br>
+				IHK Hannover, St.-Nr. 18/404/30167<br>
+			</p>
+		
+			<p>
+				Texte und Bilder dieser Seiten unterliegen dem Urheberrecht. 
+				Der Inhalt darf ohne schriftliche Genehmigung weder bearbeitet, 
+				übersetzt, vervielfältigt oder verbreitet, noch sonst gewerblich auf Druckmedien 
+				oder elektronischem Wege vertrieben werden. Wir übernehmen keine Haftung für 
+				die Inhalte externer Links, für deren Inhalt sind ausschließlich deren Betreiber verantwortlich.
+			</p>
+			
+			<h3>An der Entwicklung des Online-Shops beteiligt:</h3>
+			
+			<ul class="credits">
+				<li><a href="https://github.com/Yeti47">A. Herrfurth</a></li>
+				<li>M. Rosenbusch</li>
+				<li>A. Schmidt</li>
+				<li>K. Gerdau</li>
+				<li>D. Weatherley</li>
+			</ul>
 		
 		</div>
 	

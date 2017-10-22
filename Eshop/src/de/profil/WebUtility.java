@@ -14,5 +14,20 @@ public abstract class WebUtility {
 		return param == null ? "" : param.trim();
 		
 	}
+	
+	public static String escapeHtmlChars(String str) {
+		
+		if(str == null)
+			return null;
+		
+		String result = str.replaceAll("<", "&lt;");
+		result = result.replaceAll(">", "&gt;");
+		result = result.replaceAll("\"", "&quot;");
+		result = result.replaceAll("'", "&apos;");
+		result = result.replaceAll("&", "&amp;");
+		
+		return result;
+		
+	}
 
 }

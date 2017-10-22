@@ -65,7 +65,7 @@ ProductBean bundleBean = new ProductBean(bundleProducts);
 	
 	<div class="products-overview">
 	
-		<h2>Aktuellen Sonderangebote:</h2>
+		<h2>Aktuelle Sonderangebote:</h2>
 	
 		<p><%=bundleError %></p>
 		
