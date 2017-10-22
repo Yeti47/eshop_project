@@ -100,5 +100,64 @@ public class PaymentBean {
 		return html;
 		
 	}
+	
+	public String htmlRadioButtons(String cssClassEachPayment, String cssClassEachSection, String radioButtonName) {
+		
+		String html = "";
+		
+		if(_payments == null)
+			return html;
+		
+		int i = 0;
+		
+		for(Payment p : _payments) {
+			
+			html += "<div " + (cssClassEachPayment != null ? " class='" + cssClassEachPayment + "' " : " " ) + " >\n";
+			
+			html += "<div ";
+			
+			if(cssClassEachSection != null)
+				html += " class='" + cssClassEachSection + "' ";
+			
+			html += " >\n";
+			
+			html += "\t<input type='radio' id='payment_" + i + "' ";
+			
+			if(radioButtonName != null)
+				html += "name='" + radioButtonName + "' ";
+			
+			html += " value='" + p.getName() + "' ";
+			html += " />\n</div>\n";
+			
+			html += "<div ";
+			
+			if(cssClassEachSection != null)
+				html += " class='" + cssClassEachSection + "' ";
+			
+			html += " >\n";
+			
+			html += "\t<label for='payment_" + i + "' >" + p.getName() + "</label>\n";
+			
+			html += "</div>\n";
+			
+			html += "<div ";
+			
+			if(cssClassEachSection != null)
+				html += " class='" + cssClassEachSection + "' ";
+			
+			html += " >\n";
+			
+			html += "\t<span><b>Gebühren:</b> " + String.format("%.2f EUR", p.getFee()) + "</span>\n";
+			
+			html += "</div>\n";
+			html += "</div>\n";
+			
+			i++;
+			
+		}
+		
+		return html;
+		
+	}
 
 }

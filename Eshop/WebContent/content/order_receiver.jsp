@@ -3,7 +3,6 @@
     import=
     	"de.profil.*,
     	de.profil.beans.*,
-    	javax.sql.DataSource, 
     	java.util.*"
 %>
 
@@ -73,7 +72,7 @@
 			orderBean.getOrder().setCustomer(customer);
 			orderBean.getOrder().setReceiver(receiver);
 			orderBean.saveOrder();
-			pageContext.forward("order_pay.jsp");
+			pageContext.forward("order_paym.jsp");
 			
 		}	
 		
@@ -89,8 +88,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <link rel="stylesheet" type="text/css" href="../css/main.css">
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,700" rel="stylesheet">
+
 <title><%=Config.ESHOP_NAME %></title>
 </head>
 <body>
@@ -104,6 +106,8 @@
 		<h1>Ihre Lieferanschrift</h1>
 	
 		<form id="receiver-form" action="order_receiver.jsp" method="post">
+		
+		<input type="hidden" id="delivery" name="delivery" value="checked"/>
 		
 		<div class="form-group">
 			

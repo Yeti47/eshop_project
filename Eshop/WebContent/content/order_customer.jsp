@@ -3,7 +3,6 @@
     import=
     	"de.profil.*,
     	de.profil.beans.*,
-    	javax.sql.DataSource, 
     	java.util.*"
 %>
 
@@ -72,7 +71,11 @@
 			
 			orderBean.getOrder().setCustomer(customer);
 			orderBean.saveOrder();
-			pageContext.forward("order_receiver.jsp");
+			
+			if(deliveryChecked.equals("checked"))
+				pageContext.forward("order_receiver.jsp");
+			else
+				pageContext.forward("order_paym.jsp");
 			
 		}	
 		

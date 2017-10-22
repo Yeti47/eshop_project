@@ -19,11 +19,8 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 	// Fields
 	
 	private String _name = "";
-	
 	private String _owner = "";
-	
 	private String _bic = "";
-	
 	private String _iban = "";
 	
 	// Constructors
@@ -83,6 +80,7 @@ public class Bank implements IDatabaseReadable, IDatabaseWritable {
 		
 	@Override
 	public DatasetAttributes writeToDatabase() {
+		
 		DatasetAttributes attributes = new DatasetAttributes();
 		
 		attributes.setAttribute("name", _name);

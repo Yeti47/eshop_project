@@ -492,3 +492,21 @@ a.button {
 	text-align: right;
 	
 }
+
+.payment-container {
+	
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-between;
+    justify-content: space-between;
+	margin-top: 20px;
+	padding: 10px 20px;
+	width: 500px;
+	
+}
+
+.payment-section {
+	
+	max-width: 200px;
+	
+}
