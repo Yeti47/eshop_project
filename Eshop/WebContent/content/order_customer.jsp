@@ -13,6 +13,8 @@
 	OrderBean orderBean = new OrderBean(session, request);
 	orderBean.initializeOrder();
 	orderBean.saveOrder();
+	
+	Order order = orderBean.getOrder();
 
 	EshopDatabaseAccessor dbAccess = new EshopDatabaseAccessor();
 	dbAccess.setSelectDistinct(true);	
@@ -40,10 +42,14 @@
 	SelectBoxBuilder countryBuilder = new SelectBoxBuilder(countryArr);
 	countryBuilder.setDefaultText("Bitte auswählen...");
 	countryBuilder.setDefaultValue("NONE");
-
+	
+	// Wenn schon ein Kunden-Objekt in der Order besteht und in diesem ein Land hinterlegt ist, setze die Vorauswahl der Select-Box auf dieses Land
+	if(order.getCustomer() != null && order.getCustomer().getAddress() != null && order.getCustomer().getAddress().getCountry() != null)
+		countryBuilder.setPreSelectedItem(order.getCustomer().getAddress().getCountry().getCode());
+	
 	CustomerForm customerForm = new CustomerForm(request);
 
-	Customer customer = customerForm.getCustomer();
+	Customer customer = order.getCustomer() != null ? order.getCustomer() : customerForm.getCustomer();
 	Address address = customer.getAddress();
 	
 	String action = WebUtility.getNonNullParam(request, "action1");
@@ -66,7 +72,7 @@
 			
 			orderBean.getOrder().setCustomer(customer);
 			orderBean.saveOrder();
-			pageContext.forward("order_pay.jsp");
+			pageContext.forward("order_receiver.jsp");
 			
 		}	
 		
@@ -97,11 +103,11 @@
 
 	<div class="content">
 	
+		<h2>Ihre Rechnungsanschrift:</h2>
+	
 		<form id="customer-form" action="order_customer.jsp" method="post">
 		
 		<div class="form-group">
-		
-			<h2>Ihre Rechnungsanschrift:</h2>
 			
 			<label class="label-medium" for="title">Anrede:</label>
 			<%=customerForm.titleSelectBox("title", "title") %>
@@ -167,9 +173,8 @@
 		
 			<div class="justified-buttons">
 	
-			  	<button class="button button-medium button-default" name="action1" value="previous">Zuück</button>  		
-	
-			  	<button class="button button-medium button-positive" name="action1" value="next">Weiter</button>  		
+			  	<button class="button button-medium button-default" name="action1" value="previous">Zurück</button>  		
+				<button class="button button-medium button-positive" name="action1" value="next">Weiter</button>  		
 				
 			</div>
 		
