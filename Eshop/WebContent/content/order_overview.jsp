@@ -19,8 +19,7 @@
 	
 	// Wenn noch irgendwelche Daten fehlen, abbrechen und zurück zum Warenkorb
 	if(customer == null || customer.getAddress() == null ||  
-		customer.getAddress().getCountry() == null || order.getPayment() == null ||
-		(order.getPayment().getId() == 2 && customer.getBank() == null)) {
+		customer.getAddress().getCountry() == null || order.getPayment() == null ) {
 		
 		pageContext.forward("warenkorb.jsp");
 		
