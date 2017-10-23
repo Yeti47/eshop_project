@@ -127,7 +127,7 @@
 		}
 		
 		// Bei Bankeinzug
-		if(customer.getBank() != null) {
+		if(order.getPayment().getId() == 2) {
 			
 			customer.getBank().setCustId(customer.getCustom_id());
 			

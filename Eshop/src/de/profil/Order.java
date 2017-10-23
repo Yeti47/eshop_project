@@ -54,6 +54,7 @@ public class Order implements IDatabaseWritable {
 	// Constants
 	
 	private static final String TABLE_NAME = "orders";
+	public static final double NO_PACKAGING_AND_SHIPPING_VALUE = 1500;
 
 	// Fields
 	
@@ -206,9 +207,13 @@ public class Order implements IDatabaseWritable {
 		
 		double total = 0;
 		
-		for(Product p : getProductsById(prodId)) {
-			
-			total += p.getPackageFee();
+		if(getTotalProductsPrice() < NO_PACKAGING_AND_SHIPPING_VALUE) {
+		
+			for(Product p : getProductsById(prodId)) {
+				
+				total += p.getPackageFee();
+				
+			}
 			
 		}
 			
@@ -220,8 +225,12 @@ public class Order implements IDatabaseWritable {
 		
 		double total = 0;
 		
-		for(Product p : _products)
-			total += p.getPackageFee();
+		if(getTotalProductsPrice() < NO_PACKAGING_AND_SHIPPING_VALUE) {
+			
+			for(Product p : _products)
+				total += p.getPackageFee();
+			
+		}
 		
 		return total;
 		
@@ -232,7 +241,7 @@ public class Order implements IDatabaseWritable {
 		double total = getTotalPackagingFee();
 		total += getTotalProductsPrice();
 		
-		if(_payment != null)
+		if(_payment != null && getTotalProductsPrice() < NO_PACKAGING_AND_SHIPPING_VALUE)
 			total += _payment.getFee();
 		
 		Receiver finalReceiver = getFinalReceiver();
@@ -265,6 +274,8 @@ public class Order implements IDatabaseWritable {
 		Date d = Date.valueOf(LocalDate.now());
 		
 		dsAttributes.setAttribute("order_date", d);
+		
+		dsAttributes.setAttribute("pay_id", _payment.getId());
 		
 		return dsAttributes;
 		

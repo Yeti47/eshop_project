@@ -43,6 +43,7 @@ if(bundles != null) {
 
 ProductBean bundleBean = new ProductBean(bundleProducts);
 
+String noPackagingAndShippingValue = String.format("%.2f EUR", Order.NO_PACKAGING_AND_SHIPPING_VALUE);
 
 %>
 
@@ -62,6 +63,8 @@ ProductBean bundleBean = new ProductBean(bundleProducts);
 <%@include file="content/header.jsp" %>
 
 <div class="container">
+	
+	<div class="content"><h4>Keine Versand- und Verpackungskosten ab einem Bestellwert von <%=noPackagingAndShippingValue %>!</h4></div>
 	
 	<div class="products-overview">
 	

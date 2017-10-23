@@ -207,7 +207,7 @@ public class OrderBean {
 				
 				double unitPrice = p.getProduct().getPrice();
 				int quantity = _order.countProducts(p.getProduct().getId());
-				double packagingFee = p.getProduct().getPackageFee() * quantity;
+				double packagingFee = _order.getTotalProductsPrice() < Order.NO_PACKAGING_AND_SHIPPING_VALUE ? (p.getProduct().getPackageFee() * quantity) : 0;
 				double totalPrice = unitPrice * quantity + packagingFee;
 				
 				String quantityCell = "" + quantity;

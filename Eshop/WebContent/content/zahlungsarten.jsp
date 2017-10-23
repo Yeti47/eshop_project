@@ -34,6 +34,8 @@
 		countryBean.setCountries(countryArr);
 		
 	}
+	
+	String noPackagingShippingValue = String.format("%.2f EUR", Order.NO_PACKAGING_AND_SHIPPING_VALUE);
 
 %>
     	
@@ -75,6 +77,8 @@
 			<%=countryBean.htmlTable("country-table") %>
 			
 			<p>Beachten Sie bitte die Gebühr, welche für eine Lieferung in das jeweilige Land berechnet wird.</p>
+			
+			<h3>Ab einem Bestellwert von <%=noPackagingShippingValue %> entfallen Verpackungs- sowie Liefergebühren!</h3>
 		
 		</div>
 		
