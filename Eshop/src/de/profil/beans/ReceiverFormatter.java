@@ -2,6 +2,7 @@ package de.profil.beans;
 
 import de.profil.Address;
 import de.profil.Receiver;
+import de.profil.WebUtility;
 
 public class ReceiverFormatter {
 	
@@ -34,14 +35,14 @@ public class ReceiverFormatter {
 		
 		html += "<ul " + (cssClass != null ? " class='"+cssClass+"' " : " ") + " >" + newLine;
 		html += tab + "<li>" + _receiver.getTitleText() + "</li>" + newLine;
-		html += tab + "<li>" + _receiver.getFirstname() + " " + _receiver.getName() + "</li>" + newLine;
+		html += tab + "<li>" + WebUtility.escapeHtmlChars(_receiver.getFirstname()) + " " + WebUtility.escapeHtmlChars(_receiver.getName()) + "</li>" + newLine;
 		
 		Address address = _receiver.getAddress();
 		
 		if(address != null) {
 			
-			html += tab + "<li>" + address.getStreet() + " " + address.getHouseNumber() + "</li>" + newLine;
-			html += tab + "<li>" + address.getPostCode() + " " + address.getCity() + "</li>" + newLine;
+			html += tab + "<li>" + WebUtility.escapeHtmlChars(address.getStreet()) + " " + WebUtility.escapeHtmlChars(address.getHouseNumber()) + "</li>" + newLine;
+			html += tab + "<li>" + WebUtility.escapeHtmlChars(address.getPostCode()) + " " + WebUtility.escapeHtmlChars(address.getCity()) + "</li>" + newLine;
 			
 			if(address.getCountry() != null)
 				html += tab + "<li>" + address.getCountry().getName() + "</li>" + newLine;

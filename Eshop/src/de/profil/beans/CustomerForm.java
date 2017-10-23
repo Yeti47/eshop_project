@@ -238,16 +238,10 @@ public class CustomerForm {
 			
 		}
 		
-		if(_customer.getEmail().length() <= 0) {
+		if(!_customer.getEmail().matches("^.+@.+\\..+$")) {
 			
 			isValid = false;
-			_errEmail = "Bitte eine E-Mail Adresse eingeben.";
-			
-		}
-		else if(_customer.getEmail().length() > 100) {
-			
-			isValid = false;
-			_errEmail = "Bitte maximal 100 Zeichen eingeben.";
+			_errEmail = "Bitte eine gültige E-Mail Adresse eingeben.";
 			
 		}
 		

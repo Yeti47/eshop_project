@@ -85,6 +85,16 @@
 		pageContext.forward("warenkorb.jsp");
 		
 	}
+	
+	// Output
+	String outFirstName = WebUtility.escapeHtmlChars(customer.getFirstname());
+	String outLastName = WebUtility.escapeHtmlChars(customer.getName());
+	String outStreet =  WebUtility.escapeHtmlChars(address.getStreet());
+	String outHouseNumber =  WebUtility.escapeHtmlChars(address.getHouseNumber());
+	String outPostcode =  WebUtility.escapeHtmlChars(address.getPostCode());
+	String outCity =  WebUtility.escapeHtmlChars(address.getCity());
+	String outEmail =  WebUtility.escapeHtmlChars(customer.getEmail());
+	String outPhone =  WebUtility.escapeHtmlChars(customer.getPhone());
 
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -117,32 +127,32 @@
 			<br>
 			
 			<label class="label-medium" for="firstname">Vorname:</label>
-			<input type="text" id="firstname" name="firstname" value="<%=customer.getFirstname() %>"/>
+			<input type="text" id="firstname" name="firstname" value="<%=outFirstName %>"/>
 			<span class="form-error"><%=customerForm.getErrFirstName() %></span>
 			<br>
 			
 			<label class="label-medium" for="lastname">Name:</label>
-			<input type="text" id="lastname" name="lastname" value="<%=customer.getName() %>"/>
+			<input type="text" id="lastname" name="lastname" value="<%=outLastName %>"/>
 			<span class="form-error"><%=customerForm.getErrName() %></span>
 			<br>
 			
 			<label class="label-medium" for="street">Straﬂe:</label>
-			<input type="text" id="street" name="street" value="<%=address.getStreet() %>"/>
+			<input type="text" id="street" name="street" value="<%=outStreet %>"/>
 			<span class="form-error"><%=customerForm.getErrStreet() %></span>
 			<br>
 			
 			<label class="label-medium" for="houseno">Hausnummer:</label>
-			<input type="text" id="houseno" name="houseno" value="<%=address.getHouseNumber() %>"/>
+			<input type="text" id="houseno" name="houseno" value="<%=outHouseNumber %>"/>
 			<span class="form-error"><%=customerForm.getErrHouseNumber() %></span>
 			<br>
 			
 			<label class="label-medium" for="postcode">PLZ:</label>
-			<input type="text" id="postcode" name="postcode" value="<%=address.getPostCode() %>"/>
+			<input type="text" id="postcode" name="postcode" value="<%=outPostcode %>"/>
 			<span class="form-error"><%=customerForm.getErrPostCode() %></span>
 			<br>
 			
 			<label class="label-medium" for="city">Ort:</label>
-			<input type="text" id="city" name="city" value="<%=address.getCity() %>"/>
+			<input type="text" id="city" name="city" value="<%=outCity %>"/>
 			<span class="form-error"><%=customerForm.getErrCity() %></span>
 			<br>
 			
@@ -157,12 +167,12 @@
 			<br>
 			
 			<label class="label-medium" for="email">E-Mail:</label>
-			<input type="text" id="email" name="email" value="<%=customer.getEmail() %>"/>
+			<input type="text" id="email" name="email" value="<%=outEmail %>"/>
 			<span class="form-error"><%=customerForm.getErrEmail() %></span>
 			<br>
 			
 			<label class="label-medium" for="phone">Telefon:</label>
-			<input type="text" id="phone" name="phone" value="<%=customer.getPhone() %>"/>
+			<input type="text" id="phone" name="phone" value="<%=outPhone %>"/>
 			<span class="form-error"><%=customerForm.getErrPhone() %></span>
 			<br>
 			

@@ -64,7 +64,7 @@ String noPackagingAndShippingValue = String.format("%.2f EUR", Order.NO_PACKAGIN
 
 <div class="container">
 	
-	<div class="content"><h4>Keine Versand- und Verpackungskosten ab einem Bestellwert von <%=noPackagingAndShippingValue %>!</h4></div>
+	<h4>Keine Versand- und Verpackungskosten ab einem Bestellwert von <%=noPackagingAndShippingValue %>!</h4>
 	
 	<div class="products-overview">
 	
